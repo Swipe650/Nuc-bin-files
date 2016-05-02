@@ -1,0 +1,39 @@
+# Folders to exclude from rysnc_home script
+
+.gvfs                           # contains mounted file systems?
+.local/share/gvfs-metadata
+.Private                        # contains the actual encrypted home directory
+.dbus                           # session-specific
+.cache
+.Trash                          # do I need to say more?
+.local/share/Trash
+.local/share/baloo
+.cddb                           # cached info about audio CDs
+.aptitude                       # cached packages lists
+.dropbox
+.dropbox-dist
+.adobe                          # Cache for flash, maybe others?
+.macromedia   # except for Flash persistence, there is no reason to keep this
+.xsession-errors            # contains errors from the current graphical session
+.Xauthority                 # session-specific
+.kde/share/apps/RecentDocuments # Recent documents on KDE
+.kde/share/apps/klipper         # Contains a history of the Klipper clipboard (KDE)
+.kde/share/apps/okular/docdata  # you will loose saved scrolling positions of PDFs
+.kde/share/apps/gwenview/recentfolders
+.kde/share/apps/kmess/displaypics  # cached other users' profile pics
+.kde/share/apps/kmess/customemoticons  # cached emoticons of others
+.mozilla
+.chrome
+.config/google-chrome
+.config/chromium
+Downloads
+backups
+Documents
+logs
+Dropbox
+Videos
+Podcasts
+.local/share/RecentDocuments
+.local/share/akonadi
+.local/share/baloo
+

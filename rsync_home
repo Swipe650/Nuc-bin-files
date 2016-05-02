@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av --delete /home/swipe --exclude-from=/home/swipe/bin/exclude swipe@laptop:/home/swipe/backups/nuc
