@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <title>Link to OSX Vol Ctrl</title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+  <a href="http://kairos:4040" onclick="window.open(this.href, 'windowName', 'width=275, height=370, left=24, top=24, scrollbars, resizable'); return false;">Link</a>
+  
+  </body>
+</html>

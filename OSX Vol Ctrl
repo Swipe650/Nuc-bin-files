@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+        
+        <SCRIPT TYPE="text/javascript">
+        <!--
+        function popup(mylink, windowname)
+        {
+        if (! window.focus)return true;
+        var href;
+        if (typeof(mylink) == 'string')
+        href=mylink;
+        else
+        href=mylink.href;
+        window.open(href, windowname, 'width=275,height=370,left=154,top=154,scrollbars=yes');
+        return false;
+        }
+        //-->
+        </SCRIPT>
+    
+    </head>
+  <BODY onLoad="popup('http://kairos:4040', 'ad')">
+</html>
