@@ -1,6 +1,6 @@
 #!/bin/sh 
 ~/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-sleep 120
+sleep $1
 ~/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
