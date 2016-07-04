@@ -1,0 +1,3 @@
+#!/bin/sh
+ssh Swipe@kairos /usr/local/bin/goto_sleep
+
