@@ -1,0 +1,2 @@
+#!/bin/sh
+/home/swipe/bin/mute_radiotray /usr/bin/python2 /usr/bin/radiotray
