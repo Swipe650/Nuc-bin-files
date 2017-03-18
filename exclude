@@ -8,6 +8,7 @@
 .Trash                          # do I need to say more?
 .local/share/Trash
 .local/share/baloo
+.local/share/TelegramDesktop
 .cddb                           # cached info about audio CDs
 .aptitude                       # cached packages lists
 .dropbox
@@ -23,10 +24,13 @@
 .kde/share/apps/kmess/displaypics  # cached other users' profile pics
 .kde/share/apps/kmess/customemoticons  # cached emoticons of others
 .mozilla
+.openttd
 .chrome
 .config/google-chrome
 .config/chromium
+.config/opera
 Downloads
+Games
 backups
 Documents
 logs

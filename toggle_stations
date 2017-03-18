@@ -1,0 +1,4 @@
+#!/bin/sh
+qdbus net.sourceforge.radiotray /net/sourceforge/radiotray playRadio '5live'
+sleep $1
+qdbus net.sourceforge.radiotray /net/sourceforge/radiotray playRadio 'LBC UK'
