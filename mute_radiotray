@@ -31,7 +31,7 @@ usage() {
     echo "Arguments:"
     echo "-m = mute application"
     echo "-u = unmute application"
-    echo "-h = raise vol of application"
+    echo "-h = higher vol of application"
     echo "-l = lower vol of application"
     exit $1
 }
@@ -48,8 +48,8 @@ toggle() {
 
 mute()   { adjust_muteness "$1" 1; }
 unmute() { adjust_muteness "$1" 0; }
-volup() { adjust_vol  "$1" 70%; }
-voldown() { adjust_vol  "$1" 50%; }
+volup() { adjust_vol  "$1" 70%; } # <- Set higher volume level here
+voldown() { adjust_vol  "$1" 45%; } # <- Set lower volume level here
 
 adjust_muteness() { 
     local index=$(get_index "$1")
