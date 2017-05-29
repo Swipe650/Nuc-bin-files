@@ -1,11 +1,11 @@
 #!/bin/sh
+# Usage: ./toggle_mute3 X X X X X  (where X is no of seconds to mute for)
 
 mute () { "$HOME/bin/mute_radiotray" -m /usr/bin/python2 /usr/bin/radiotray; }
 unmute () { "$HOME/bin/mute_radiotray" -u /usr/bin/python2 /usr/bin/radiotray; }
 high_vol () { "$HOME/bin/mute_radiotray" -h /usr/bin/python2 /usr/bin/radiotray; }
 low_vol () { "$HOME/bin/mute_radiotray" -l /usr/bin/python2 /usr/bin/radiotray; }
 peep () { sleep 0.75; }
-
 
 mute
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0

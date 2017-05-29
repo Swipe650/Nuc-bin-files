@@ -38,12 +38,12 @@ usage() {
 
 toggle() {
     local status=$(get_status "$1")
-      volup "$1"
     if [[ "$status" == "yes" ]]; then
       unmute "$1"
     elif [[ "$status" == "no" ]]; then
       mute "$1"
     fi
+    volup "$1"
 }
 
 mute()   { adjust_muteness "$1" 1; }
