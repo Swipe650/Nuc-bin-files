@@ -1,9 +1,9 @@
 #!/bin/sh
 
-mute () { $HOME/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray; }
-unmute () { $HOME/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray; }
-high_vol () { $HOME/bin/mute_radiotray -h /usr/bin/python2 /usr/bin/radiotray; }
-low_vol () { $HOME/bin/mute_radiotray -l /usr/bin/python2 /usr/bin/radiotray; }
+mute () { "$HOME/bin/mute_radiotray" -m /usr/bin/python2 /usr/bin/radiotray; }
+unmute () { "$HOME/bin/mute_radiotray" -u /usr/bin/python2 /usr/bin/radiotray; }
+high_vol () { "$HOME/bin/mute_radiotray" -h /usr/bin/python2 /usr/bin/radiotray; }
+low_vol () { "$HOME/bin/mute_radiotray" -l /usr/bin/python2 /usr/bin/radiotray; }
 peep () { sleep 0.75; }
 
 
