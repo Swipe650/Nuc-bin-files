@@ -261,7 +261,8 @@ if len(sys.argv) > 1:
 
 root = tk.Tk()
 root.wm_title(WINDOW_TITLE)
-root.wm_geometry ("-30-80")
+root.wm_geometry ("-2030-0")
+#root.wm_geometry ("-30-80")
 root.resizable(width=False, height=False)
 #root.geometry('{}x{}'.format(195, 200))
 

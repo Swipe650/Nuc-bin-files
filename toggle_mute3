@@ -1,0 +1,25 @@
+#!/bin/sh 
+~/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray
+qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+sleep $1
+~/bin/mute_radiotray -l /usr/bin/python2 /usr/bin/radiotray
+~/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray
+sleep 0.75
+~/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray
+sleep $2
+~/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray
+sleep 0.75
+~/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray
+sleep $3
+~/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray
+sleep 0.75
+~/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray
+sleep $4
+~/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray
+sleep 0.75
+~/bin/mute_radiotray -m /usr/bin/python2 /usr/bin/radiotray
+sleep $5
+~/bin/mute_radiotray -u /usr/bin/python2 /usr/bin/radiotray
+~/bin/mute_radiotray -h /usr/bin/python2 /usr/bin/radiotray
+qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+

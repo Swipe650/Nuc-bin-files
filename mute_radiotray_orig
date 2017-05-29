@@ -4,12 +4,10 @@
 
 main() {
     local action=toggle
-    while getopts :muhl option; do 
+    while getopts :mu option; do 
         case "$option" in 
             m) action=mute ;;
             u) action=unmute ;;
-            h) action=volup ;;
-            l) action=voldown ;;
             ?) usage 1 "invalid option: -$OPTARG" ;;
         esac
     done
@@ -26,19 +24,16 @@ main() {
 
 usage() {
     [[ "$2" ]] && echo "error: $2"
-    echo "Usage: $0 [-m | -u | -h | -l ] appname"
+    echo "Usage: $0 [-m | -u] appname"
     echo "Default: toggle mute"
     echo "Arguments:"
     echo "-m = mute application"
     echo "-u = unmute application"
-    echo "-h = raise vol of application"
-    echo "-l = lower vol of application"
     exit $1
 }
 
 toggle() {
     local status=$(get_status "$1")
-      volup "$1"
     if [[ "$status" == "yes" ]]; then
       unmute "$1"
     elif [[ "$status" == "no" ]]; then
@@ -48,19 +43,11 @@ toggle() {
 
 mute()   { adjust_muteness "$1" 1; }
 unmute() { adjust_muteness "$1" 0; }
-volup() { adjust_vol  "$1" 70%; }
-voldown() { adjust_vol  "$1" 50%; }
 
 adjust_muteness() { 
     local index=$(get_index "$1")
     local status=$(get_status "$1")
     [[ "$index" ]] && pacmd set-sink-input-mute "$index" $2 >/dev/null 
-}
-
-adjust_vol() { 
-    local index=$(get_index "$1")
-    local status=$(get_status "$1")
-    [[ "$index" ]] && pactl set-sink-input-volume "$index" $2 >/dev/null 
 }
 
 get_index() {
