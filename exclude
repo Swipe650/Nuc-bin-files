@@ -2,6 +2,7 @@
 
 .gvfs                           # contains mounted file systems?
 .local/share/gvfs-metadata
+.local/share/local-mail
 .Private                        # contains the actual encrypted home directory
 .dbus                           # session-specific
 .cache
@@ -41,4 +42,4 @@ Podcasts
 .local/share/RecentDocuments
 .local/share/akonadi
 .local/share/baloo
-
+Music
