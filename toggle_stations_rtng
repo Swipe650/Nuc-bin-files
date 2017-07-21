@@ -1,0 +1,4 @@
+#!/bin/sh
+qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station BBC 5live
+sleep $1
+qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK'
