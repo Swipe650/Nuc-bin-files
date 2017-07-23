@@ -1,0 +1,27 @@
+#!/bin/bash
+#Requires trash-cli from the AUR
+
+confirm() {
+    # call with a prompt string or use a default
+    read -r -p "${1:-Are you sure? [y/N]} " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
+
+echo "enter the name of the video you want to send to trash"
+
+read video
+
+confirm "Are you sure you want to send $video to trash [y/N]?" && trash-put ~/Videos/$video
+
+
+
+
+
+
