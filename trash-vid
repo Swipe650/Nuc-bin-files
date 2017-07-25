@@ -1,5 +1,6 @@
 #!/bin/bash
-#Requires trash-cli from the AUR
+# Requires trash-cli from the AUR
+# Usage: trash-vid NameOfVid,mkv
 
 confirm() {
     # call with a prompt string or use a default
