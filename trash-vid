@@ -15,13 +15,6 @@ confirm() {
     esac
 }
 
-#echo "enter the name of the video you want to send to trash"
-
 
 confirm "Are you sure you want to send ""$1"" to trash [y/N]?" && trash-put ~/Videos/"$1"
-
-
-
-
-
 
