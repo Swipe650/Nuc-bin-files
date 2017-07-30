@@ -3,14 +3,12 @@
 
 newver="$(curl -sSf https://www.kernel.org/releases.json | jq -r '.releases[].version' | grep '^4\.4\.')"
 
-#newver="4.4.80"
-
-curver="$(uname -r | awk '{print substr($0,0,6)}')"
+#Get current package version from PKGBUILD file
+curver=$(awk '/pkgver=/ {print substr($0,8)}' /home/swipe/.cache/pacaur/linux-lts44/PKGBUILD)
 
 
 if [ "$newver" != "$curver" ] ;
 then
-    #echo "$newver is available"
     DISPLAY=:0 notify-send -t 100000 "New lts44 kernel available!" "Version $newver is now available and PKGBUILD updated" &
     /home/swipe/.cache/pacaur/linux-lts44/update.sh
 fi
