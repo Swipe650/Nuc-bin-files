@@ -9,8 +9,8 @@ curver=$(awk '/pkgver=/ {print substr($0,8)}' /home/swipe/.cache/pacaur/linux-lt
 
 if [ "$newver" != "$curver" ] ;
 then
-   xuserrun notify-send -t 3000000 "New lts44 kernel available!" "Version $newver is now available and PKGBUILD updated" & 
-/home/swipe/.cache/pacaur/linux-lts44/update.sh 
+   xuserrun notify-send -t 300000 "New lts44 kernel available!" "Version $newver is now available and PKGBUILD updated"
+# & /home/swipe/.cache/pacaur/linux-lts44/update.sh 
 fi
 
 
