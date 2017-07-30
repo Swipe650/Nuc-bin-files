@@ -1,5 +1,0 @@
-#!/bin/bash
-
-#Place in cron.hourly so notify-send can run as root 
-
-su swipe -c "/home/swipe/bin/get-lts-version"
