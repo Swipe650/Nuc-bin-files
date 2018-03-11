@@ -36,12 +36,13 @@ usage() {
     exit $1
 }
 
+# Toggle mute and rename muted.png to switch on and off in .conkyrc
 toggle() {
     local status=$(get_status "$1")
     if [[ "$status" == "yes" ]]; then
-      unmute "$1"
+      unmute "$1" ; mv ~/.conky/muted.png ~/.conky/xmuted.png
     elif [[ "$status" == "no" ]]; then
-      mute "$1"
+      mute "$1" ; mv ~/.conky/xmuted.png ~/.conky/muted.png
     fi
     volup "$1"
 }
