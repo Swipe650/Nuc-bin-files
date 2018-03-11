@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to mute audio playback stream
-# mute_radiotray /usr/bin/python2 /usr/bin/radiotray
+# USAGE: mute_radiotray-ng /usr/bin/radiotray-ng
 
 main() {
     local action=toggle

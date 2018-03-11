@@ -1,0 +1,2 @@
+ #!/bin/bash
+ ssh Swipe@kairos /usr/local/bin/unlock
