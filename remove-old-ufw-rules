@@ -1,0 +1,10 @@
+# Remove old rules from /etc/ufw
+
+#!/bin/bash
+
+sudo rm /etc/ufw/after6.rules.2*
+sudo rm /etc/ufw/after.rules.2*
+sudo rm /etc/ufw/before6.rules.2*
+sudo rm /etc/ufw/before.rules.2*
+sudo rm /etc/ufw/user6.rules.2*
+sudo rm /etc/ufw/user.rules.2*
