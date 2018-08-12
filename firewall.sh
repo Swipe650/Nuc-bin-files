@@ -8,3 +8,4 @@ sudo ufw allow in on tun0 from any to any
 sudo ufw allow 1714:1764/udp
 sudo ufw allow 1714:1764/tcp
 sudo ufw enable
+mv /home/swipe/.conky/fwoff.png /home/swipe/.conky/fwon.png

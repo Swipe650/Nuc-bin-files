@@ -11,3 +11,4 @@ sudo ufw allow in 137,138/tcp
 sudo ufw allow in 5556/tcp
 sudo ufw allow in 5558/tcp
 sudo ufw enable
+mv /home/swipe/.conky/fwon.png /home/swipe/.conky/fwoff.png
