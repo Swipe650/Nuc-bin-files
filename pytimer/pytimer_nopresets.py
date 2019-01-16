@@ -44,7 +44,7 @@ SOUND_FILE = '{d}/timer_done.wav'.format(d=PROJECT_DIR)
 SOUND_VOLUME = '0.75'
 
 hostname = socket.gethostname()
-if hostname == 'laptop':
+if hostname == 'Nuc':
     SOUND_VOLUME = 0.75
 
 required_commands = [
