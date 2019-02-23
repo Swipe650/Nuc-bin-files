@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="user-scalable=no">
+  <title>Radio Paradise FLAC Player</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel = "icon" type = "image / png" href = "http://www.radioparadise.com/graphics/fb_logo.png">
+</head>
+<body>
+  <div id="loader"></div>
+  <div style="display:none;" id="mainPage" class="animate-bottom">
+    <!-- Logo -->
+    <!--<div id="logo"><a target="_blank" href="https://www.radioparadise.com"><img src="./rp-logo.png" height="100" width="100"></a></div>
+    <!--<div id="logo"><a target="_blank" href="https://www.radioparadise.com/rp2s-content.php?name=Support&file=support"><img src="./button_donate.png" width="90"></a></div>
+    <!-- Cover -->
+    <div id="cover"></div>
+
+    <!-- Top Info -->
+    <div id="title">
+      <span id="track"></span>
+      <!--<div id="album"></div> -->
+      <div id="album"></div>
+      <div id="timer">0:00</div>
+      <!-- <div id="duration">0:00</div> -->
+    </div>
+
+    <!-- Controls -->
+    <div class="controlsOuter">
+      <div class="controlsInner">
+        <div id="loading"></div>
+        <div id="nextLoading"></div>
+        <div id="prevLoading"></div>
+        <div class="btn" id="playBtn"></div>
+        <div class="btn" id="pauseBtn"></div>
+        <div class="btn" id="prevBtn"></div>
+        <div class="btn" id="nextBtn"></div>
+      </div>
+      <!--<div id="flac"><a target="_blank" href="https://www.radioparadise.com/"><img src="./flac_logo_transparent.png"></a></div>-->
+      <div class="btn" id="playlistBtn"></div>
+      <div class="btn" id="volumeBtn"></div>
+    </div>
+    
+    <!-- Playlist -->
+    <div id="playlist">
+      <div id="list"></div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress"></div>
+
+    <!-- Volume -->
+    <div id="volume" class="fadeout">
+      <div id="barFull" class="bar"></div>
+      <div id="barEmpty" class="bar"></div>
+      <div id="sliderBtn"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./howler-core.js"></script>
+  <script src="./player.js"></script>
+</body>
+</html>
