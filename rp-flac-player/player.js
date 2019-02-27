@@ -340,7 +340,7 @@ Player.prototype = {
     var trackToSet = currentSong.artist + ' - ' + currentSong.title;
     if(track.innerHTML != trackToSet) {
       track.innerHTML = trackToSet;
-      album.innerHTML = 'Album: ' + currentSong.album + ' (' + currentSong.year+ ')';
+      //album.innerHTML = 'Album: ' + currentSong.album + ' (' + currentSong.year+ ')';
       cover.innerHTML = "<img src=\'" + currentSong.cover + "\'>";
       self.index = newIndex;
     }
@@ -405,7 +405,7 @@ function buildPlaylistForFirstEvent(event) {
         begin: (currentSong.elapsed/1000)/event.length,
         elapsed: currentSong.elapsed,
         cover: 'https://img.radioparadise.com/' + currentSong.cover,
-        album: currentSong.album,
+        //album: currentSong.album,
         year: currentSong.year,
         duration: currentSong.duration
     };
@@ -432,7 +432,7 @@ function addNextEventToPlaylist(event, self) {
         begin: (currentSong.elapsed/1000)/event.length,
         elapsed: currentSong.elapsed,
         cover: 'https://img.radioparadise.com/' + currentSong.cover,
-        album: currentSong.album,
+        //album: currentSong.album,
         year: currentSong.year,
         duration: currentSong.duration
     };
