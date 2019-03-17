@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/bin/google-chrome-stable %U --app="data:text/html,<html><body><script>window.moveTo(2604,94);window.resizeTo(355,100);window.location='https://swipe650.github.io/rp/index2.html';</script></body></html>"
+
