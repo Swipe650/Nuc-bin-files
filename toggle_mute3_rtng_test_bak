@@ -12,6 +12,21 @@ rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/mu
 mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+#sleep "$1" #15
+
+# low_vol && unmute && peep && mute
+# sleep "$2"
+# 
+# low_vol && unmute && peep && mute
+# sleep "$3"
+# 
+# low_vol && unmute && peep && mute
+# sleep "$4"
+# 
+# low_vol && unmute && peep && mute
+# sleep "$5"
+# 
+# high_vol && unmute
 
 function get_adbreak_length() 
 
@@ -19,15 +34,13 @@ function get_adbreak_length()
 
 ffmpeg -i http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-adbreaklength=$(printf '%s\n' "$string" | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' $HOME/stream.txt | cut -c16-21)
+adbreaklength=$(printf '%s\n' "$string" | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' $HOME/Downloads/stream.txt | cut -c16-21)
 
 
 declare -i ms=$adbreaklength
 declare -i value=($ms/1000)
 
 echo $value
-
-#sleep 3
 
 }
 
@@ -37,7 +50,7 @@ until [ $seconds -gt 0 ]
 do get_adbreak_length
 done
 
-
+#mute
 #seconds=$(get_adbreak_length)
 echo "$seconds"
 
