@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+ffmpeg -i http://media-ice.musicradio.com:80/LBCUK -c:a libmp3lame ~/Downloads/lbc.mp3
