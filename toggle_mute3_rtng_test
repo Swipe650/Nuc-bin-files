@@ -21,25 +21,33 @@ ffmpeg -i http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
 adbreaklength=$(printf '%s\n' "$string" | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' $HOME/stream.txt | cut -c16-21)
 
+#declare -i seconds
 
 declare -i ms=$adbreaklength
 declare -i value=($ms/1000)
 
-echo $value
+echo "$value"
 
-#sleep 3
+#sleep 2
 
 }
 
+
 seconds=$(get_adbreak_length)
 
+
+
 until [ $seconds -gt 0 ]
-do get_adbreak_length
+do 
+    get_adbreak_length
+    seconds=$(get_adbreak_length)
+    sleep 2
 done
 
 
-#seconds=$(get_adbreak_length)
-echo "$seconds"
+#echo "$seconds"
+
+
 
 sleep "$seconds"
 
