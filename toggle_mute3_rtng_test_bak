@@ -1,5 +1,4 @@
 #!/bin/sh
-# Usage: ./toggle_mute3 X X X X X  (where X is no of seconds to mute for)
 
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }

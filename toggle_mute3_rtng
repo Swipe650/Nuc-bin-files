@@ -1,31 +1,47 @@
 #!/bin/sh
-# Usage: ./toggle_mute3 X X X X X  (where X is no of seconds to mute for)
 
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
 high_vol () { "$HOME/bin/mute_radiotray-ng" -h /usr/bin/radiotray-ng; }
 low_vol () { "$HOME/bin/mute_radiotray-ng" -l /usr/bin/radiotray-ng; }
 peep () { sleep 0.75; }
-rename_xmuted () if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi
-rename_muted () if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi
+rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
+rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
 
 mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-sleep "$1"
 
-low_vol && unmute && peep && mute
-sleep "$2"
+function get_adbreak_length() 
 
-low_vol && unmute && peep && mute
-sleep "$3"
+{
 
-low_vol && unmute && peep && mute
-sleep "$4"
+ffmpeg -i http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-low_vol && unmute && peep && mute
-sleep "$5"
+adbreaklength=$(printf '%s\n' "$string" | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' $HOME/stream.txt | cut -c16-21)
 
-high_vol && unmute
+declare -i ms=$adbreaklength
+declare -i value=($ms/1000)
+
+echo "$value"
+
+}
+
+
+seconds=$(get_adbreak_length)
+
+until [ $seconds -gt 0 ]
+do 
+    get_adbreak_length
+    seconds=$(get_adbreak_length)
+    sleep 5
+done
+
+
+#echo "$seconds"
+
+sleep "$seconds"
+
+unmute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
