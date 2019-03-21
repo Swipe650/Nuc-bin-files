@@ -1,0 +1,33 @@
+#!/bin/sh
+# Usage: ./toggle_mute3 X X X X X  (where X is no of seconds to mute for)
+
+mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
+unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
+# high_vol () { "$HOME/bin/mute_radiotray-ng" -h /usr/bin/radiotray-ng; }
+# low_vol () { "$HOME/bin/mute_radiotray-ng" -l /usr/bin/radiotray-ng; }
+# peep () { sleep 0.75; }
+rename_xmuted () if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi
+rename_muted () if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi
+
+mute
+
+qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+sleep "$1"
+
+# low_vol && unmute && peep && mute
+# sleep "$2"
+# 
+# low_vol && unmute && peep && mute
+# sleep "$3"
+# 
+# low_vol && unmute && peep && mute
+# sleep "$4"
+# 
+# low_vol && unmute && peep && mute
+# sleep "$5"
+# 
+# high_vol && unmute
+
+unmute
+
+qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
