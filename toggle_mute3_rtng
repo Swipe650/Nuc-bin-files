@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
@@ -18,10 +18,10 @@ function get_adbreak_length()
 
 ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-adbreaklength=$(printf '%s\n' "$string" | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' $HOME/stream.txt | cut -c16-21)
+adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21)
 
 declare -i ms=$adbreaklength
-declare -i value=($ms/1000)
+declare -i value=("$ms"/1000)
 
 echo "$value"
 
@@ -30,7 +30,7 @@ echo "$value"
 
 seconds=$(get_adbreak_length)
 
-until [ $seconds -gt 0 ]
+until [ "$seconds" -gt 0 ]
 do 
     get_adbreak_length
     seconds=$(get_adbreak_length)
