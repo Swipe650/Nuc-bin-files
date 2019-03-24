@@ -18,7 +18,7 @@
       <span id="track"></span>
       <!--<div id="album"></div> -->
       <div id="album"></div>
-      <!--<div id="timer">0:00</div>-->
+      <div id="timer">0:00</div>
       <!-- <div id="timer">0:00</div> -->
       <!-- <div id="duration">0:00</div> -->
     </div>
@@ -37,7 +37,6 @@
       <!--<div id="flac"><a target="_blank" href="https://www.radioparadise.com/"><img src="./flac_logo_transparent.png"></a></div>-->
       <div class="btn" id="playlistBtn"></div>
       <div class="btn" id="volumeBtn"></div>
-      <div id="timer">0:00</div>
     </div>
     
     <!-- Playlist -->

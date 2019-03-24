@@ -65,8 +65,7 @@ html {
   }
   #timer {
     position: absolute;
-    /*top: 360px;*/
-    top: 110%;
+    top: 360px;
     /* left: 3%; */
     right: 4%;
     text-align: right;
