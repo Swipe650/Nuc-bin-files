@@ -46,7 +46,7 @@ done
 
 #echo "$seconds"
 
-~/.conky/conkytimer $seconds
+~/.conky/conkytimer $seconds &
 sleep "$seconds"
 
 unmute
