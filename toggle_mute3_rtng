@@ -8,6 +8,17 @@ unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_mut
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
 
+# check if time is between top of the hour and 6 minutes
+run_toggle_mute3_rtng_f6()
+{  
+   currenttime=$(date +%M)
+   if [[ "$currenttime" > "00" ]] && [[ "$currenttime" < "07" ]]; then
+     ~/bin/toggle_mute3_rtng_f6 30 && exit
+   fi
+}
+
+run_toggle_mute3_rtng_f6
+
 mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
