@@ -9,19 +9,22 @@ rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
 
 # check if time is between top of the hour and 6 minutes
+
 check_top_of_the_hour()
 {  
+   #Get current time in minutes
    currenttime=$(date +%M)
    if [[ "$currenttime" > "00" ]] && [[ "$currenttime" < "07" ]]; then
-     #~/bin/toggle_mute3_rtng_f6 30 && exit
-     
+        
+        declare -i adlength=30
+        
         mute
 
         qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
-        ~/.conky/conkytimer 30 &
+        ~/.conky/conkytimer "$adlength" &
 
-        sleep 30
+        sleep "$adlength"
         
         unmute
 
@@ -37,7 +40,8 @@ mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
-function get_adbreak_length() 
+
+get_adbreak_length() 
 
 {
 
