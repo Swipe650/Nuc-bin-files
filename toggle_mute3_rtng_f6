@@ -12,6 +12,9 @@ rename_muted () if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/mute
 mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+
+~/.conky/conkytimer $1 &
+
 sleep "$1"
 
 # low_vol && unmute && peep && mute
