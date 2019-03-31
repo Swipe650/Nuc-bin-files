@@ -360,10 +360,8 @@ function showPage() {
   playBtn.style.display = 'block';
 }
 
-//var flacApiBaseUrl = 'https://api.radioparadise.com/api/get_block?bitrate=4&info=true';
-//var flacApiNextEventUrl = 'https://api.radioparadise.com/api/get_block?bitrate=4&info=true';
-var flacApiBaseUrl = 'https://api.radioparadise.com/api/get_block?bitrate=4&chan=2&info=true';
-var flacApiNextEventUrl = 'https://api.radioparadise.com/api/get_block?bitrate=4&chan=2&info=true';
+var flacApiBaseUrl = 'https://api.radioparadise.com/api/get_block?bitrate=4&info=true';
+var flacApiNextEventUrl = 'https://api.radioparadise.com/api/get_block?bitrate=4&info=true';
 var nextStream;
 var nextPlaylist;
 
