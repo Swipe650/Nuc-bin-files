@@ -44,7 +44,7 @@ toggle() {
     elif [[ "$status" == "no" ]]; then
       mute "$1" ; mv ~/.conky/xmuted.png ~/.conky/muted.png
     fi
-    volup "$1"
+    #volup "$1" # Uncomment to use volup() value i.e. 70% to override radiotray-ng config volume
 }
 
 mute()   { adjust_muteness "$1" 1; }
