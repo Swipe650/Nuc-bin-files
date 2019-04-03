@@ -8,10 +8,34 @@ unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_mut
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
 
+# Clean up any obsolete .conkytimer files
+rm ~/.conkytimer
+
+# Conky countdown timer
+conkytimer()
+{
+trap "rm ~/.conkytimer" INT
+
+sec=$1
+millisecondsToseonds=$(( $1/1000 ))
+
+for (( i = 0; i < $sec; i++ )); do
+        # write remaining sec to file
+        timer=$((sec-i))
+        display="                           ${timer}"
+        echo "$display" > ~/.conkytimer
+        # wait 1sec
+        sleep 1
+done
+
+rm ~/.conkytimer
+}
+
+
 # check if time is between top of the hour and 6 minutes
 check_top_of_the_hour()
 {  
-   #Get current time in minutes
+   # Get current time in minutes
    currenttime=$(date +%M)
    if [[ "$currenttime" > "00" ]] && [[ "$currenttime" < "07" ]]; then
         
@@ -21,9 +45,11 @@ check_top_of_the_hour()
 
         qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
-        ~/.conky/conkytimer "$adlength" &
+        #~/.conky/conkytimer "$adlength" &
+        
+        conkytimer "$adlength"
           
-        sleep "$adlength"
+        #sleep "$adlength"
         
         unmute
 
@@ -41,19 +67,18 @@ qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
 
 get_adbreak_length() 
-
 {
 
-#Get stream metadata
+# Get stream metadata
 ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-#Cut six digit adbreak length from metadata file
+# Cut six digit adbreak length from metadata file
 adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21)
 
 #Remove any leading 0 digits
 adbreaklength=$((10#$adbreaklength + 1))
 
-#Set as integer and convert from ms to seconds
+# Set as integer and convert from ms to seconds
 declare -i ms=$adbreaklength
 declare -i value=("$ms"/1000)
 
@@ -71,12 +96,13 @@ do
     sleep 5
 done
 
-
 #echo "$seconds"
 
-~/.conky/conkytimer $seconds &
+#~/.conky/conkytimer $seconds &
 
-sleep "$seconds"
+conkytimer $seconds
+
+#sleep "$seconds"
 
 unmute
 
