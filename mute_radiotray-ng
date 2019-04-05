@@ -49,7 +49,7 @@ toggle() {
 
 mute()   { adjust_muteness "$1" 1; }
 unmute() { adjust_muteness "$1" 0; }
-volup() { adjust_vol  "$1" 70%; } # <- Set higher volume level here
+volup() { adjust_vol  "$1" 100%; } # <- Set higher volume level here
 voldown() { adjust_vol  "$1" 45%; } # <- Set lower volume level here
 
 adjust_muteness() { 
