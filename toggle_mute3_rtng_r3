@@ -67,7 +67,7 @@ check_top_of_the_hour
 
 #qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
-radio3
+radio3 ; sleep 3 ; /home/swipe/.conky/conkyradiotray-ng/onair
 
 get_adbreak_length() 
 {
