@@ -81,7 +81,7 @@ ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21)
 
 #Remove any leading 0 digits
-adbreaklength=$((10#$adbreaklength + 1))
+#adbreaklength=$((10#$adbreaklength + 1))
 
 # Set as integer and convert from ms to seconds
 declare -i ms=$adbreaklength
