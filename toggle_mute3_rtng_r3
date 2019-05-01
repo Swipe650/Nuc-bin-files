@@ -10,7 +10,7 @@ rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/mu
 lbc () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK' ; sleep 3  ;  ~/.conky/conkyradiotray-ng/onair; }
 radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station BBC 'Radio 3'; sleep 3 ; ~/.conky/conkyradiotray-ng/onair; }
 classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
-soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station Soma' ; }
+soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
 
 # Clean up any obsolete .conkytimer files
 rm ~/.conkytimer
