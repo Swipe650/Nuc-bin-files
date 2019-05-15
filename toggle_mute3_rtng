@@ -7,6 +7,10 @@ unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_mut
 # peep () { sleep 0.75; }
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
+lbc () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK' ; sleep 3  ;  ~/.conky/conkyradiotray-ng/onair; }
+radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station BBC 'Radio 3'; sleep 3 ; ~/.conky/conkyradiotray-ng/onair; }
+classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
+soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
 
 # Clean up any obsolete .conkytimer files
 rm ~/.conkytimer
@@ -44,7 +48,7 @@ check_top_of_the_hour()
         mute
 
         qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-
+        
         #~/.conky/conkytimer "$adlength" &
         
         conkytimer "$adlength"
@@ -65,6 +69,9 @@ mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
+#radio3
+#classicfm
+#soma
 
 get_adbreak_length() 
 {
@@ -72,11 +79,13 @@ get_adbreak_length()
 # Get stream metadata
 ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-# Cut six digit adbreak length from metadata file
-adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21)
+# Cut six digit adbreak length from metadata file and remove any :
+adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21 | sed 's/://g')
 
 #Remove any leading 0 digits
-adbreaklength=$((10#$adbreaklength + 1))
+#adbreaklength=$((10#$adbreaklength + 1))
+
+
 
 # Set as integer and convert from ms to seconds
 declare -i ms=$adbreaklength
@@ -104,6 +113,8 @@ conkytimer $seconds
 
 #sleep "$seconds"
 
-unmute
+#unmute
 
-qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+lbc ; unmute
+
+#qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
