@@ -13,7 +13,8 @@ classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github
 soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
 
 # Clean up any obsolete .conkytimer files
-rm ~/.conkytimer
+if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer
+fi
 
 # Conky countdown timer
 conkytimer()
@@ -32,7 +33,8 @@ for (( i = 0; i < $sec; i++ )); do
         sleep 1
 done
 
-rm ~/.conkytimer
+if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer
+fi
 }
 
 
@@ -42,60 +44,6 @@ check_top_of_the_hour()
    # Get current time in minutes
    currenttime=$(date +%M)
    if [[ "$currenttime" > "00" ]] && [[ "$currenttime" < "07" ]]; then
-        
-        declare -i adlength=30
-        
-        mute
-
-        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-        
-        #~/.conky/conkytimer "$adlength" &
-        
-        conkytimer "$adlength"
-          
-        #sleep "$adlength"
-        
-        unmute
-
-        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
-    
-        exit
-   fi
-}
-
-# check if time is between 15 and 20 minutes
-check_quarter_past_the_hour()
-{  
-   # Get current time in minutes
-   currenttime=$(date +%M)
-   if [[ "$currenttime" > "15" ]] && [[ "$currenttime" < "20" ]]; then
-        
-        declare -i adlength=180
-        
-        mute
-
-        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-        
-        #~/.conky/conkytimer "$adlength" &
-        
-        conkytimer "$adlength"
-          
-        #sleep "$adlength"
-        
-        unmute
-
-        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
-    
-        exit
-   fi
-}
-
-# check if time is between bottom of the hour and 36 minutes
-check_bottom_of_the_hour()
-{  
-   # Get current time in minutes
-   currenttime=$(date +%M)
-   if [[ "$currenttime" > "30" ]] && [[ "$currenttime" < "37" ]]; then
         
         declare -i adlength=30
         
@@ -156,7 +104,7 @@ echo "$value"
 
 seconds=$(get_adbreak_length)
 
-until [ "$seconds" -gt 0 ]
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 180 ]
 do 
     get_adbreak_length
     seconds=$(get_adbreak_length)
@@ -173,6 +121,7 @@ conkytimer $seconds
 
 #unmute
 
-lbc ; unmute
+#lbc
+unmute
 
-#qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
