@@ -63,7 +63,65 @@ check_top_of_the_hour()
    fi
 }
 
+# check if time is between 15 and 20 minutes
+check_quarter_past_the_hour()
+{  
+   # Get current time in minutes
+   currenttime=$(date +%M)
+   if [[ "$currenttime" > "15" ]] && [[ "$currenttime" < "20" ]]; then
+        
+        declare -i adlength=180
+        
+        mute
+
+        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+        
+        #~/.conky/conkytimer "$adlength" &
+        
+        conkytimer "$adlength"
+          
+        #sleep "$adlength"
+        
+        unmute
+
+        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+    
+        exit
+   fi
+}
+
+# check if time is between bottom of the hour and 36 minutes
+check_bottom_of_the_hour()
+{  
+   # Get current time in minutes
+   currenttime=$(date +%M)
+   if [[ "$currenttime" > "30" ]] && [[ "$currenttime" < "37" ]]; then
+        
+        declare -i adlength=30
+        
+        mute
+
+        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+        
+        #~/.conky/conkytimer "$adlength" &
+        
+        conkytimer "$adlength"
+          
+        #sleep "$adlength"
+        
+        unmute
+
+        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+    
+        exit
+   fi
+}
+
 check_top_of_the_hour
+
+#check_quarter_past_the_hour
+
+#check_bottom_of_the_hour
 
 mute
 
