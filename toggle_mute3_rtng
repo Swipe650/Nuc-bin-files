@@ -67,10 +67,6 @@ check_top_of_the_hour()
 
 check_top_of_the_hour
 
-#check_quarter_past_the_hour
-
-#check_bottom_of_the_hour
-
 mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
@@ -108,20 +104,15 @@ until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 180 ]
 do 
     get_adbreak_length
     seconds=$(get_adbreak_length)
+    display="                           ${SECONDS}"
+    echo "$display" > ~/.conkytimer
     sleep 5
 done
 
-#echo "$seconds"
-
-#~/.conky/conkytimer $seconds &
 
 conkytimer $seconds
 
-#sleep "$seconds"
-
-#unmute
-
-#lbc
+#lbc ;
 unmute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
