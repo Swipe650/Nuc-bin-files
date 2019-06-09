@@ -97,13 +97,17 @@ echo "$value"
 
 }
 
-
+# Set $seconds to value returned by get_adbreak_length()
 seconds=$(get_adbreak_length)
 
+# Wait until $seconds is greater than 0 or $SECONDS is greater than 180 then execute do loop
 until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 180 ]
 do 
+    # Run get_adbreak_length()
     get_adbreak_length
+    # Set $seconds to value returned by get_adbreak_length()
     seconds=$(get_adbreak_length)
+    # Write $SECONDS to file
     display="                           ${SECONDS}"
     echo "$display" > ~/.conkytimer
     sleep 5
