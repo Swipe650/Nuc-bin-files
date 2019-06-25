@@ -5,6 +5,8 @@ sudo ufw default deny incoming
 sudo ufw default deny outgoing
 sudo ufw allow 1714:1764/udp
 sudo ufw allow 1714:1764/tcp
+sudo ufw allow 5556/tcp
+sudo ufw allow 5558/tcp
 sudo ufw allow out on tun0 from any to any
 sudo ufw allow in on tun0 from any to any
 sudo ufw enable

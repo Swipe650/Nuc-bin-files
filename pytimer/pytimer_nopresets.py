@@ -282,7 +282,7 @@ time_str = tk.StringVar()
 # create the time display label, give it a large font
 # label auto-adjusts to the font
 label_font = ('helvetica', 34)
-tk.Label(root, textvariable=time_str, font=label_font, bg='white',
+tk.Label(root, textvariable=time_str, font=label_font, bg='#a5b0c6',
          fg='red', relief='raised', bd=3).grid(padx=5, pady=5)
 time_str.set(formatter(MINUTES * 60))
 root.update()
@@ -316,7 +316,7 @@ mutebtn.grid(column=0, row=3, sticky=(E))
 mutebtn.bind('<Return>', mute)
 
 
-setbtn = tk.Button(root, text='Set', command=onset)
+setbtn = tk.Button(root, text=' Set ', command=onset)
 setbtn.grid(column=0, row=2, sticky=(W))
 setbtn.bind('<Return>', onset)
 
