@@ -84,8 +84,8 @@ ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 # Cut six digit adbreak length from metadata file and remove any :
 #adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21 | sed 's/://g' | tail -n -2)
 
-# Cut six digit adbreak length from metadata file from the line beginning with 'StreamUrl'
-adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30)
+# Cut six digit adbreak length from metadata file from the line beginning with 'StreamUrl'and remove any :
+adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30 | sed 's/://g')
 
 #Remove any leading 0 digits
 #adbreaklength=$((10#$adbreaklength + 1))
