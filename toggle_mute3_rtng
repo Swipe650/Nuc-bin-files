@@ -33,7 +33,7 @@ for (( i = 0; i < $sec; i++ )); do
         sleep 1
 done
 
-if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer
+if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer & touch ~/.conkytimer
 fi
 }
 
