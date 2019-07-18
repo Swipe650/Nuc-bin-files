@@ -27,7 +27,7 @@ millisecondsToseonds=$(( $1/1000 ))
 for (( i = 0; i < $sec; i++ )); do
         # write remaining sec to file
         timer=$((sec-i))
-        display="                      ${timer}"
+        display="${timer}"
         echo "$display" > ~/.conkytimer
         # wait 1sec
         sleep 1
@@ -111,7 +111,7 @@ do
     # Set $seconds to value returned by get_adbreak_length()
     seconds=$(get_adbreak_length)
     # Write $SECONDS to file
-    display="                  ${SECONDS}"
+    display="${SECONDS}"
     echo "$display" > ~/.conkytimer
     sleep 5
 done
