@@ -7,11 +7,41 @@ unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_mut
 # peep () { sleep 0.75; }
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
+lbc () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK' ; sleep 3  ;  ~/.conky/conkyradiotray-ng/onair; }
+radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station BBC 'Radio 3'; sleep 3 ; ~/.conky/conkyradiotray-ng/onair; }
+classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
+soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
+
+# Clean up any obsolete .conkytimer files
+if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer
+fi
+
+# Conky countdown timer
+conkytimer()
+{
+trap "rm ~/.conkytimer" INT
+
+sec=$1
+millisecondsToseonds=$(( $1/1000 ))
+
+for (( i = 0; i < $sec; i++ )); do
+        # write remaining sec to file
+        timer=$((sec-i))
+        display="                  ${timer}"
+        echo "$display" > ~/.conkytimer
+        # wait 1sec
+        sleep 1
+done
+
+if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer & touch ~/.conkytimer
+fi
+}
+
 
 # check if time is between top of the hour and 6 minutes
 check_top_of_the_hour()
 {  
-   #Get current time in minutes
+   # Get current time in minutes
    currenttime=$(date +%M)
    if [[ "$currenttime" > "00" ]] && [[ "$currenttime" < "07" ]]; then
         
@@ -20,10 +50,12 @@ check_top_of_the_hour()
         mute
 
         qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-
-        ~/.conky/conkytimer "$adlength" &
+        
+        #~/.conky/conkytimer "$adlength" &
+        
+        conkytimer "$adlength"
           
-        sleep "$adlength"
+        #sleep "$adlength"
         
         unmute
 
@@ -39,21 +71,28 @@ mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
+#radio3
+#classicfm
+#soma
 
 get_adbreak_length() 
-
 {
 
-#Get stream metadata
+# Get stream metadata
 ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-#Cut six digit adbreak length from metadata file
-adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21)
+# Cut six digit adbreak length from metadata file and remove any :
+#adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21 | sed 's/://g' | tail -n -2)
+
+# Cut six digit adbreak length from metadata file from the line beginning with 'StreamUrl'and remove any :
+adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30 | sed 's/://g')
 
 #Remove any leading 0 digits
-adbreaklength=$((10#$adbreaklength + 1))
+#adbreaklength=$((10#$adbreaklength + 1))
 
-#Set as integer and convert from ms to seconds
+
+
+# Set as integer and convert from ms to seconds
 declare -i ms=$adbreaklength
 declare -i value=("$ms"/1000)
 
@@ -61,23 +100,26 @@ echo "$value"
 
 }
 
-
+# Set $seconds to value returned by get_adbreak_length()
 seconds=$(get_adbreak_length)
 
-until [ "$seconds" -gt 0 ]
+# Wait until $seconds is greater than 0 or $SECONDS is greater than 200 then execute do loop
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 200 ]
 do 
+    # Run get_adbreak_length()
     get_adbreak_length
+    # Set $seconds to value returned by get_adbreak_length()
     seconds=$(get_adbreak_length)
+    # Write $SECONDS to file
+    display="                  ${SECONDS}"
+    echo "$display" > ~/.conkytimer
     sleep 5
 done
 
 
-#echo "$seconds"
+conkytimer $seconds
 
-~/.conky/conkytimer $seconds &
-
-sleep "$seconds"
-
+#lbc ;
 unmute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
