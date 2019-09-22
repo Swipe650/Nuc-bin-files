@@ -103,19 +103,29 @@ echo "$value"
 # Set $seconds to value returned by get_adbreak_length()
 seconds=$(get_adbreak_length)
 
-# Wait until $seconds is greater than 0 or $SECONDS is greater than 180 then execute do loop
-until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 180 ]
+no_adbreak_length()
+{
+
+#Sets timeout value for function
+timeout=100 # Set to half the number of $SECONDS due to 2 secon sleep
+
+# Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than 200 then execute do loop
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 200 ]
 do 
-    # Run get_adbreak_length()
-    get_adbreak_length
     # Set $seconds to value returned by get_adbreak_length()
     seconds=$(get_adbreak_length)
-    # Write $SECONDS to file
-    display="                  ${SECONDS}"
-    echo "$display" > ~/.conkytimer
-    sleep 5
+    # Write seconds remaining in countdown to file
+    secs=$timeout 
+        for (( i = 0; i < $secs; i++ )); do
+        timer=$((secs-i))
+        display="                  ${timer}*"
+        echo "$display" > ~/.conkytimer
+        sleep 2
+        done
 done
+}
 
+no_adbreak_length
 
 conkytimer $seconds
 
