@@ -107,10 +107,10 @@ no_adbreak_length()
 {
 
 #Sets timeout value for function
-timeout=100 # Set to half the number of $SECONDS due to 2 secon sleep
+timeout=200 # Set to slightly lonmger than $SECONDS or it loops twice
 
 # Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than 200 then execute do loop
-until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 200 ]
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 199 ]
 do 
     # Set $seconds to value returned by get_adbreak_length()
     seconds=$(get_adbreak_length)
@@ -120,7 +120,7 @@ do
         timer=$((secs-i))
         display="                  ${timer}*"
         echo "$display" > ~/.conkytimer
-        sleep 2
+        sleep 1
         done
 done
 }
