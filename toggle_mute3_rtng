@@ -108,9 +108,9 @@ until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ]
 
 do
     seconds=$(get_adbreak_length)
-    display="                  ${SECONDS}"
+    display="                  $((timeout - ${SECONDS}))*"
     echo "$display" > ~/.conkytimer
-    sleep 5
+    sleep 1
 done
 }
 
