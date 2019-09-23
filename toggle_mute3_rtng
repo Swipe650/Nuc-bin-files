@@ -12,19 +12,13 @@ radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.ra
 classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
 soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
 
-# Clean up any obsolete .conkytimer files
-if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer
-fi
-
 # Conky countdown timer
 conkytimer()
 {
-trap "rm ~/.conkytimer" INT
-
 sec=$1
 millisecondsToseonds=$(( $1/1000 ))
 
-for (( i = 0; i < $sec; i++ )); do
+for (( i = 0; i < sec; i++ )); do
         # write remaining sec to file
         timer=$((sec-i))
         display="                  ${timer}"
@@ -77,7 +71,6 @@ qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
 get_adbreak_length() 
 {
-
 # Get stream metadata
 ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
@@ -97,26 +90,25 @@ declare -i ms=$adbreaklength
 declare -i value=("$ms"/1000)
 
 echo "$value"
-
 }
 
 # Set $seconds to value returned by get_adbreak_length()
 seconds=$(get_adbreak_length)
 
+
 no_adbreak_length()
 {
-
 #Sets timeout value for function
-timeout=200 # Set to slightly lonmger than $SECONDS or it loops twice
+timeout=200 # <--- Set value for adbreak length
 
-# Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than 200 then execute do loop
-until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 199 ]
+# Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout -1 then execute do loop
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $((timeout -1)) ] # (-1 needed to prevent second loop)
 do 
     # Set $seconds to value returned by get_adbreak_length()
     seconds=$(get_adbreak_length)
     # Write seconds remaining in countdown to file
     secs=$timeout 
-        for (( i = 0; i < $secs; i++ )); do
+        for (( i = 0; i < secs; i++ )); do
         timer=$((secs-i))
         display="                  ${timer}*"
         echo "$display" > ~/.conkytimer
