@@ -95,8 +95,7 @@ echo "$value"
 }
 
 # Set $seconds to value returned by get_adbreak_length()
-seconds=$(get_adbreak_length)
-
+#seconds=$(get_adbreak_length)
 
 no_adbreak_length()
 {
@@ -110,7 +109,7 @@ do
     seconds=$(get_adbreak_length)
     display="                  $((timeout - ${SECONDS}))*"
     echo "$display" > ~/.conkytimer
-    sleep 1
+    sleep 2
 done
 }
 
