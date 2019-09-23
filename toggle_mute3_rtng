@@ -15,6 +15,8 @@ soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radi
 # Conky countdown timer
 conkytimer()
 {
+trap "rm ~/.conkytimer" INT
+
 sec=$1
 millisecondsToseonds=$(( $1/1000 ))
 
@@ -98,22 +100,17 @@ seconds=$(get_adbreak_length)
 
 no_adbreak_length()
 {
-#Sets timeout value for function
+# Sets timeout value for function
 timeout=200 # <--- Set value for adbreak length
+# 
+#Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ] 
 
-# Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout -1 then execute do loop
-until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $((timeout -1)) ] # (-1 needed to prevent second loop)
-do 
-    # Set $seconds to value returned by get_adbreak_length()
+do
     seconds=$(get_adbreak_length)
-    # Write seconds remaining in countdown to file
-    secs=$timeout 
-        for (( i = 0; i < secs; i++ )); do
-        timer=$((secs-i))
-        display="                  ${timer}*"
-        echo "$display" > ~/.conkytimer
-        sleep 1
-        done
+    display="                  ${SECONDS}"
+    echo "$display" > ~/.conkytimer
+    sleep 1
 done
 }
 
