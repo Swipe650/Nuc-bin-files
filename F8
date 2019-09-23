@@ -1,2 +1,2 @@
 #!/bin/sh
-/home/swipe/bin/mute_radiotray /usr/bin/python2 /usr/bin/radiotray
+/home/swipe/bin/mute_radiotray-ng /usr/bin/radiotray-ng
