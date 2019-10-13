@@ -15,7 +15,7 @@ soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radi
 # Conky countdown timer
 conkytimer()
 {
-trap "rm ~/.conkytimer" INT
+#trap "rm ~/.conkytimer" INT
 
 sec=$1
 millisecondsToseonds=$(( $1/1000 ))
