@@ -100,7 +100,7 @@ check_for_off_peak()
    currenttime=$(date +%H:%M)
    
    if [[ "$currenttime" > "19:00" ]] || [[ "$currenttime" < "04:00" ]]; then
-   timeout=180
+   timeout=185
    fi
 }
 
@@ -110,7 +110,7 @@ seconds=$(get_adbreak_length)
 no_adbreak_length()
 {
 # Sets timeout value for function
-timeout=200 # <--- Set value for adbreak length
+timeout=220 # <--- Set value for adbreak length
 
 # Run check_for_off_peak()
 check_for_off_peak
