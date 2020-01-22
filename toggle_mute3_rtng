@@ -85,13 +85,16 @@ adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30
 #Remove any leading 0 digits
 #adbreaklength=$((10#$adbreaklength + 1))
 
-
+# Check if $adbreaklength is not null
+if [ -n "$adbreaklength" ]
+then
 
 # Set as integer and convert from ms to seconds
 declare -i ms=$adbreaklength
-declare -i value=("$ms"/1000)
+declare -i value=("$ms"/1000+20)
 
 echo "$value"
+fi
 }
 
 check_for_off_peak()
@@ -110,7 +113,7 @@ seconds=$(get_adbreak_length)
 no_adbreak_length()
 {
 # Sets timeout value for function
-timeout=220 # <--- Set value for adbreak length
+timeout=225 # <--- Set value for adbreak length
 
 # Run check_for_off_peak()
 check_for_off_peak

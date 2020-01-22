@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+start_recording() {
+    ffmpeg -f x11grab -video_size 1920x1080 -framerate 60 -i "$DISPLAY" -f pulse -i default -c:v libx264 -preset ultrafast -c:a aac "$HOME/Downloads/$(date '+%y%m%d-%H%M-%S').mkv" &
+    echo $! > /tmp/recordingpid
+}
+
+stop_recording() {
+	recpid="$(cat /tmp/recordingpid)"
+	# kill with SIGTERM, allowing finishing touches.
+	kill -15 "$recpid"
+	rm -f /tmp/recordingpid
+	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
+	sleep 3
+	kill -9 "$recpid"
+	exit
+}
+case "$1" in
+    start) start_recording
+        ;;
+    stop) stop_recording
+        ;;
+esac

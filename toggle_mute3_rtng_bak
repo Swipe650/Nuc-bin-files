@@ -12,19 +12,15 @@ radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.ra
 classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
 soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
 
-# Clean up any obsolete .conkytimer files
-if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer
-fi
-
 # Conky countdown timer
 conkytimer()
 {
-trap "rm ~/.conkytimer" INT
+#trap "rm ~/.conkytimer" INT
 
 sec=$1
 millisecondsToseonds=$(( $1/1000 ))
 
-for (( i = 0; i < $sec; i++ )); do
+for (( i = 0; i < sec; i++ )); do
         # write remaining sec to file
         timer=$((sec-i))
         display="                  ${timer}"
@@ -77,7 +73,6 @@ qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
 get_adbreak_length() 
 {
-
 # Get stream metadata
 ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
@@ -97,25 +92,41 @@ declare -i ms=$adbreaklength
 declare -i value=("$ms"/1000)
 
 echo "$value"
+}
 
+check_for_off_peak()
+{  
+   # Get current time in minutes
+   currenttime=$(date +%H:%M)
+   
+   if [[ "$currenttime" > "19:00" ]] || [[ "$currenttime" < "04:00" ]]; then
+   timeout=185
+   fi
 }
 
 # Set $seconds to value returned by get_adbreak_length()
 seconds=$(get_adbreak_length)
 
-# Wait until $seconds is greater than 0 or $SECONDS is greater than 200 then execute do loop
-until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt 200 ]
-do 
-    # Run get_adbreak_length()
-    get_adbreak_length
-    # Set $seconds to value returned by get_adbreak_length()
-    seconds=$(get_adbreak_length)
-    # Write $SECONDS to file
-    display="                  ${SECONDS}"
-    echo "$display" > ~/.conkytimer
-    sleep 5
-done
+no_adbreak_length()
+{
+# Sets timeout value for function
+timeout=225 # <--- Set value for adbreak length
 
+# Run check_for_off_peak()
+check_for_off_peak
+
+#Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ] 
+
+do
+    seconds=$(get_adbreak_length)
+    display="                  $((timeout - ${SECONDS}))*"
+    echo "$display" > ~/.conkytimer
+    sleep 2
+done
+}
+
+no_adbreak_length
 
 conkytimer $seconds
 

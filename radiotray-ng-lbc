@@ -1,0 +1,4 @@
+#!/bin/sh
+radiotray-ng &
+sleep 1
+qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK'  ; sleep 3  ;  ~/.conky/conkyradiotray-ng/onair
