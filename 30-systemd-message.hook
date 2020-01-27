@@ -1,0 +1,9 @@
+[Trigger]
+Type = Package
+Operation = Upgrade
+Target = systemd
+
+[Action]
+Description = Upgrading systemd...
+When = PostTransaction
+Exec = /usr/bin/echo "ATTENTION! - Check protected home entry in /usr/lib/systemd/system/fstrim.service"
