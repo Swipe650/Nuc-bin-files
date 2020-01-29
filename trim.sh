@@ -7,4 +7,4 @@ echo "*** $(date -R) ***" >> $LOG
 #fstrim -v /home >> $LOG
 
 # trim all supported mounted filesystems from /etc/fstab
-sudo fstrim --fstab --verbose >> $LOG
+fstrim --fstab --verbose >> $LOG
