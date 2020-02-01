@@ -1,9 +1,9 @@
 [Trigger]
 Type = Package
 Operation = Upgrade
-Target = systemd
+Target = util-linux
 
 [Action]
-Description = Upgrading systemd...
+Description = Upgrading util-linux...
 When = PostTransaction
 Exec = /usr/bin/echo "$(tput bold)ATTENTION! - Check protected home entry in /usr/lib/systemd/system/fstrim.service"
