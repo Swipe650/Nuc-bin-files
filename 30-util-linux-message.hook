@@ -6,4 +6,4 @@ Target = util-linux
 [Action]
 Description = Upgrading util-linux...
 When = PostTransaction
-Exec = /usr/bin/echo "$(tput bold)ATTENTION! - Check protected home entry in /usr/lib/systemd/system/fstrim.service"
+Exec = /usr/bin/echo "ATTENTION! - Check ProtectSytem entry in /usr/lib/systemd/system/fstrim.service"
