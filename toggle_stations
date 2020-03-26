@@ -1,4 +1,27 @@
 #!/bin/sh
-qdbus net.sourceforge.radiotray /net/sourceforge/radiotray playRadio '5live'
-sleep $1
-qdbus net.sourceforge.radiotray /net/sourceforge/radiotray playRadio 'LBC UK'
+lbc_news() { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC News' ; } 
+lbc_uk() { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK' ; } 
+talkradio() { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'TalkRadio' ; }
+# mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
+# unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
+# rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
+# rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
+
+lbc_uk='LBC UK'
+lbc_news='LBC News'
+talkradio='TalkRadio'
+
+#lbc_news
+
+st=$(qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.get_player_state | jq -r '.station')
+
+case "$st" in
+    "$lbc_uk" )
+        /home/swipe/bin/play_tr   
+;;
+    "$talkradio" )
+        /home/swipe/bin/play_lbcnews
+;;
+    "$lbc_news" )
+        /home/swipe/bin/radiotray-ng-lbc
+esac

@@ -1,4 +1,7 @@
 #!/bin/sh
 radiotray-ng &
 sleep 1
+setvol () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.set_volume 47 ; }
+setvol
+
 qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK'  ; sleep 3  ;  ~/.conky/conkyradiotray-ng/onair
