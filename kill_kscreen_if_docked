@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Check to see if another instance of this script is running
+for pid in $(pidof -x kill_kscreen_if_docked); do
+    if [ $pid != $$ ]; then
+        echo "[$(date)] : kill_kscreen_if_docked : Process is already running with PID $pid"
+        exit 1
+    fi
+done
+
+
+# Check to see if HDMI-3 port is connected (laptop docked)
+status="$(xrandr | grep "HDMI-3 connected")"
+
+# While $status variable is not empty (HDMI-3 connected) check for  kscreen_backend_launcher process every 15 minutes and then kill it
+while [ -n "$status" ];
+    do
+        #echo docked
+        if pidof -x "$(basename /usr/lib/kf5/kscreen_backend_launcher)" > /dev/null
+        then
+        pidof -x "$(basename /usr/lib/kf5/kscreen_backend_launcher)" | xargs kill
+        fi
+        sleep 900
+    done
