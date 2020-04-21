@@ -42,7 +42,7 @@ check_top_of_the_hour()
 {  
    # Get current time in minutes
    currenttime=$(date +%M)
-   if [[ "$currenttime" -gt "00" ]] && [[ "$currenttime" -lt "02" ]]; then
+   if [[ "$currenttime" -gt "00" ]] && [[ "$currenttime" -lt "07" ]]; then
         
         declare -i adlength=30
         
