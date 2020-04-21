@@ -100,6 +100,7 @@ then
 # Set as integer and convert from ms to seconds + buffer value
 declare -i ms=$adbreaklength
 declare -i value=("$ms"/1000+"$buffer") 
+declare -i value
 
 echo "${value[@]}"
 fi
@@ -136,7 +137,7 @@ timeout=225 # <--- Set value for adbreak length
 check_for_off_peak
 
 #Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
-until [ "$seconds" > 0 ] || [ "$SECONDS" -gt $timeout ] 
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ] 
 
 do
     seconds=$(get_adbreak_length)
