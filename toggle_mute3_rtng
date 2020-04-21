@@ -111,7 +111,7 @@ check_for_off_peak()
    currenttime=$(date +%H%M)
 
    if [[ "$currenttime" -gt "1900" ]] || [[ "$currenttime" -lt "0400" ]]; then
-   timeout=15
+   timeout=185
    buffer=0
    fi
 }
