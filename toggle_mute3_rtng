@@ -42,7 +42,7 @@ check_top_of_the_hour()
 {  
    # Get current time in minutes
    currenttime=$(date +%M)
-   if [[ "$currenttime" -gt "00" ]] && [[ "$currenttime" -lt "07" ]]; then
+   if [[ "$currenttime" -gt "00" ]] && [[ "$currenttime" -lt "02" ]]; then
         
         declare -i adlength=30
         
@@ -100,7 +100,6 @@ then
 # Set as integer and convert from ms to seconds + buffer value
 declare -i ms=$adbreaklength
 declare -i value=("$ms"/1000+"$buffer") 
-declare -i value
 
 echo "${value[@]}"
 fi
@@ -112,7 +111,7 @@ check_for_off_peak()
    currenttime=$(date +%H%M)
 
    if [[ "$currenttime" -gt "1900" ]] || [[ "$currenttime" -lt "0400" ]]; then
-   timeout=185
+   timeout=15
    buffer=0
    fi
 }
@@ -132,12 +131,13 @@ no_adbreak_length()
 
 # Sets timeout value for function
 timeout=225 # <--- Set value for adbreak length
+declare -i timeout
 
 # Run check_for_off_peak()
 check_for_off_peak
 
 #Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
-until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ] 
+until [ "$seconds" > 0 ] || [ "$SECONDS" -gt $timeout ] 
 
 do
     seconds=$(get_adbreak_length)
