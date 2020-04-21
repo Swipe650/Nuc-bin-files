@@ -122,8 +122,8 @@ check_for_off_peak()
 
 
 # Set $seconds to value returned by get_adbreak_length()
+declare -i seconds
 seconds=$(get_adbreak_length)
-
 
 # Function for when there is no adbreaklength returned
 no_adbreak_length()
@@ -137,7 +137,7 @@ declare -i timeout
 check_for_off_peak
 
 #Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
-until [ "$seconds" > 0 ] || [ "$SECONDS" -gt $timeout ] 
+until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ] 
 
 do
     seconds=$(get_adbreak_length)
