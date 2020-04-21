@@ -131,7 +131,6 @@ no_adbreak_length()
 
 # Sets timeout value for function
 timeout=225 # <--- Set value for adbreak length
-declare -i timeout
 
 # Run check_for_off_peak()
 check_for_off_peak
