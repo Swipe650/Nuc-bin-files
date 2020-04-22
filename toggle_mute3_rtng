@@ -42,7 +42,7 @@ check_top_of_the_hour()
 {  
    # Get current time in minutes
    currenttime=$(date +%M)
-   if [[ "$currenttime" -gt "00" ]] && [[ "$currenttime" -lt "07" ]]; then
+   if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
         
         declare -i adlength=30
         
@@ -110,7 +110,7 @@ check_for_off_peak()
    # Get current time in minutes
    currenttime=$(date +%H%M)
 
-   if [[ "$currenttime" -gt "1900" ]] || [[ "$currenttime" -lt "0400" ]]; then
+   if [ "$currenttime" -gt "1900" ] || [ "$currenttime" -lt "0400" ]; then
    timeout=185
    buffer=0
    fi
