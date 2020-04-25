@@ -41,7 +41,8 @@ show_osd_dialog()
 {
    vollevel=$(amixer -D pulse get Master | awk -F 'Left:|[][]' 'BEGIN {RS=""}{ print $3 }')
 
-qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged ${vollevel::-1}
+   # Show dialog and remove "%" character from $vollevel
+   qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged ${vollevel::-1}
 }
 
 
@@ -88,31 +89,31 @@ qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
 get_adbreak_length() 
 {
-# Get stream metadata
-ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
+   # Get stream metadata
+   ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-# Cut six digit adbreak length from metadata file and remove any :
-#adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21 | sed 's/://g' | tail -n -2)
+   # Cut six digit adbreak length from metadata file and remove any :
+   #adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21 | sed 's/://g' | tail -n -2)
 
-# Cut six digit adbreak length from metadata file from the line beginning with 'StreamUrl'and remove any :
-adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30 | sed 's/://g')
+   # Cut six digit adbreak length from metadata file from the line beginning with 'StreamUrl'and remove any :
+   adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30 | sed 's/://g')
 
-#Remove any leading 0 digits
-#adbreaklength=$((10#$adbreaklength + 1))
+   #Remove any leading 0 digits
+   #adbreaklength=$((10#$adbreaklength + 1))
 
-# Run check_for_off_peak()
-check_for_off_peak
+   # Run check_for_off_peak()
+   check_for_off_peak
 
-# Check if $adbreaklength is not null
-if [ -n "$adbreaklength" ]
-then
+   # Check if $adbreaklength is not null
+   if [ -n "$adbreaklength" ]
+      then
 
-# Set as integer and convert from ms to seconds + buffer value
-declare -i ms=$adbreaklength
-declare -i value=("$ms"/1000+"$buffer") 
+      # Set as integer and convert from ms to seconds + buffer value
+      declare -i ms=$adbreaklength
+      declare -i value=("$ms"/1000+"$buffer") 
 
-echo "${value[@]}"
-fi
+      echo "${value[@]}"
+   fi
 }
 
 check_for_off_peak()
@@ -145,15 +146,15 @@ timeout=225 # <--- Set value for adbreak length
 # Run check_for_off_peak()
 check_for_off_peak
 
-#Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
+# Wait until $seconds is greater than 0 or $SECONDS (time of running script) is greater than $timeout then execute do loop
 until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ] 
 
-do
-    seconds=$(get_adbreak_length)
-    display="                  $((timeout - SECONDS))*"
-    echo "$display" > ~/.conkytimer
-    sleep 2
-done
+   do
+      seconds=$(get_adbreak_length)
+      display="                  $((timeout - SECONDS))*"
+      echo "$display" > ~/.conkytimer
+      sleep 2
+   done
 }
 
 
