@@ -36,6 +36,14 @@ if [[ -f ~/.conkytimer ]]; then rm ~/.conkytimer & touch ~/.conkytimer
 fi
 }
 
+# Get current volume level and show OSD dialog
+show_osd_dialog()
+{
+   vollevel=$(amixer -D pulse get Master | awk -F 'Left:|[][]' 'BEGIN {RS=""}{ print $3 }')
+
+qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged ${vollevel::-1}
+}
+
 
 # check if time is between top of the hour and 6 minutes
 check_top_of_the_hour()
@@ -58,7 +66,9 @@ check_top_of_the_hour()
         
         unmute
 
-        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+        show_osd_dialog
+
+        #qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
     
         exit
    fi
@@ -156,4 +166,4 @@ conkytimer "$seconds"
 #lbc ;
 unmute
 
-qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
+show_osd_dialog
