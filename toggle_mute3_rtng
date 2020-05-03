@@ -2,15 +2,8 @@
 
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
-# high_vol () { "$HOME/bin/mute_radiotray-ng" -h /usr/bin/radiotray-ng; }
-# low_vol () { "$HOME/bin/mute_radiotray-ng" -l /usr/bin/radiotray-ng; }
-# peep () { sleep 0.75; }
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
-# lbc () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'LBC UK' ; sleep 3  ;  ~/.conky/conkyradiotray-ng/onair; }
-# radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station BBC 'Radio 3'; sleep 3 ; ~/.conky/conkyradiotray-ng/onair; }
-# classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
-# soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
 
 # Adlength buffer overrun for daytime ads. Insert value here in secs
 buffer=15
@@ -69,8 +62,6 @@ check_top_of_the_hour()
 
         show_osd_dialog
 
-        #qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 60
-    
         exit
    fi
 }
@@ -83,23 +74,13 @@ mute
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
-#radio3
-#classicfm
-#soma
-
 get_adbreak_length() 
 {
    # Get stream metadata
    ffprobe http://media-ice.musicradio.com:80/LBCUK &> "$HOME/stream.txt"
 
-   # Cut six digit adbreak length from metadata file and remove any :
-   #adbreaklength=$(printf '%s' | awk -v RS='[[:blank:]]' '/^ADBREAK_LENGTH_/' "$HOME/stream.txt" | cut -c16-21 | sed 's/://g' | tail -n -2)
-
    # Cut six digit adbreak length from metadata file from the line beginning with 'StreamUrl'and remove any :
    adbreaklength=$(awk -F 'StreamUrl' '{print $2}' "$HOME/stream.txt" | cut -c25-30 | sed 's/://g')
-
-   #Remove any leading 0 digits
-   #adbreaklength=$((10#$adbreaklength + 1))
 
    # Run check_for_off_peak()
    check_for_off_peak
@@ -127,11 +108,6 @@ check_for_off_peak()
    fi
 }
 
-# Adlength buffer overrun for daytime ads. Insert value here in secs
-#buffer=15
-
-
-
 # Set $seconds to value returned by get_adbreak_length()
 declare -i seconds
 seconds=$(get_adbreak_length)
@@ -157,14 +133,10 @@ until [ "$seconds" -gt 0 ] || [ "$SECONDS" -gt $timeout ]
    done
 }
 
-
 no_adbreak_length
-
-
 
 conkytimer "$seconds"
 
-#lbc ;
 unmute
 
 show_osd_dialog
