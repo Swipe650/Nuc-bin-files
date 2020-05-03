@@ -11,10 +11,8 @@ buffer=15
 # Conky countdown timer
 conkytimer()
 {
-#trap "rm ~/.conkytimer" INT
 
 sec=$1
-# millisecondsToseonds=$(( $1/1000 ))
 
 for (( i = 0; i < sec; i++ )); do
         # write remaining sec to file
