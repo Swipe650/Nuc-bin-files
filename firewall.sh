@@ -8,6 +8,8 @@ sudo ufw allow 1714:1764/tcp
 sudo ufw allow 22/tcp
 sudo ufw allow 5556/tcp
 sudo ufw allow 5558/tcp
+sudo ufw allow 8009:8010/tcp
+sudo ufw allow 8009:8010/udp
 sudo ufw allow out on tun0 from any to any
 sudo ufw allow in on tun0 from any to any
 sudo ufw enable

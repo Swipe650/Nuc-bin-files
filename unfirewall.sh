@@ -10,6 +10,8 @@ sudo ufw allow in 139,445/tcp
 sudo ufw allow in 137,138/tcp
 sudo ufw allow in 5556/tcp
 sudo ufw allow in 5558/tcp
+sudo ufw allow 8009:8010/tcp
+sudo ufw allow 8009:8010/udp
 sudo ufw enable
 
 if [ -e /home/swipe/.conky/fwon.png ] 
