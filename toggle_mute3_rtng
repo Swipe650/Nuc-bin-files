@@ -36,8 +36,22 @@ show_osd_dialog()
    qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged ${vollevel::-1}
 }
 
+top_of_the_hour_dialog()
+      {
+        mute
 
-# check if time is between top of the hour and 6 minutes
+        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
+        
+        conkytimer "$adlength"
+          
+        unmute
+
+        show_osd_dialog
+
+        exit
+      }
+
+# check if time is between top of the hour and 7 minutes
 check_top_of_the_hour()
 {  
    # Get current time in minutes
@@ -47,24 +61,10 @@ check_top_of_the_hour()
    
         declare -i adlength=30
         
-        mute
+        top_of_the_hour_dialog
 
-        qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
-        
-        #~/.conky/conkytimer "$adlength" &
-        
-        conkytimer "$adlength"
-          
-        #sleep "$adlength"
-        
-        unmute
-
-        show_osd_dialog
-
-        exit
    fi
 }
-
 
 
 check_top_of_the_hour
