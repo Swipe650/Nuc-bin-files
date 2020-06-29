@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo cp OsdItem.qml /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/osd/OsdItem.qml
+kquitapp5 plasmashell && plasmashell &
