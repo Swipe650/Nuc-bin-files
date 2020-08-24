@@ -51,19 +51,29 @@ top_of_the_hour_dialog()
         exit
       }
 
-# check if time is between top of the hour and 7 minutes
+# check if time is between top of the hour and 7 minutes or 58, 59 or 00
 check_top_of_the_hour()
 {  
    # Get current time in minutes
    currenttime=$(date +%M)
+
+   # check if time is :58, :59 or :00 (for Talkradio)
+   if [ "$currenttime" -eq "58" ] || [ "$currenttime" -eq "59" ]  || [ "$currenttime" -eq "00" ]; then
+
+        declare -i adlength=120
+        
+        top_of_the_hour_dialog
+   fi
    
+   # check if time is between top of the hour and 7 minutes
    if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
-   
+
+
         declare -i adlength=30
         
         top_of_the_hour_dialog
-
    fi
+
 }
 
 
