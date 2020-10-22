@@ -1,3 +1,5 @@
 #!/bin/bash
  
 kquitapp5 plasmashell && plasmashell &
+
+# plasmashell --replace
