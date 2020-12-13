@@ -70,7 +70,13 @@ check_top_of_the_hour()
         
         top_of_the_hour_dialog
    fi
+   esac
    
+   st=$(qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.get_player_state | jq -r '.station')
+    lbc='LBC UK'
+    #if [ "$st"='LBC UK' ]; then
+    case "$st" in 
+    "$lbc" )
    
    # check if time is between top of the hour and 7 minutes
    if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
@@ -133,7 +139,7 @@ no_adbreak_length()
 {
 
 # Sets timeout value for function
-timeout=225 # <--- Set value for adbreak length
+timeout=235 # <--- Set value for adbreak length
 
 # Run check_for_off_peak()
 check_for_off_peak
