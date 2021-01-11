@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#home_device="Lounge"
+home_device="Kitchen"
+
+touch ~/.lbc
+
+if [[ -f ~/.tr ]]; then rm ~/.tr & touch ~/.lbc
+fi
+
+/home/swipe/bin/cast-linux-amd64 --name $home_device media play http://media-ice.musicradio.com:80/LBCUK
