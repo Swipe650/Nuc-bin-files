@@ -12,7 +12,7 @@ set_default_mute_time()
 {
     mute
     
-    sleep 5
+    sleep 230
      
     unmute
     
@@ -53,7 +53,6 @@ check_top_of_the_hour()
 
     if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
 # 
-    echo "lbc"
     mute
     
     sleep 30
