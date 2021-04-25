@@ -39,7 +39,7 @@ RowLayout {
 
     spacing: units.smallSpacing
 
-    width: Math.max(Math.min(Screen.desktopAvailableWidth / 2, implicitWidth), units.gridUnit * 10)
+    width: Math.max(Math.min(Screen.desktopAvailableWidth / 2, implicitWidth), units.gridUnit * 15)
     height: units.iconSizes.medium
 
     PlasmaCore.IconItem {

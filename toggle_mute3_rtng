@@ -6,7 +6,7 @@ rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
 
 # Adlength buffer overrun for daytime ads. Insert value here in secs
-buffer=15
+buffer=30
 
 # Conky countdown timer
 conkytimer()
@@ -125,7 +125,7 @@ check_for_off_peak()
    currenttime=$(date +%H%M)
 
    if [ "$currenttime" -gt "1900" ] || [ "$currenttime" -lt "0400" ]; then
-   timeout=185
+   timeout=195
    buffer=0
    fi
 }
