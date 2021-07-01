@@ -125,7 +125,7 @@ check_for_off_peak()
    currenttime=$(date +%H%M)
 
    if [ "$currenttime" -gt "1900" ] || [ "$currenttime" -lt "0400" ]; then
-   timeout=195
+   timeout=240
    buffer=0
    fi
 }
@@ -139,7 +139,7 @@ no_adbreak_length()
 {
 
 # Sets timeout value for function
-timeout=235 # <--- Set value for adbreak length
+timeout=250 # <--- Set value for adbreak length
 
 # Run check_for_off_peak()
 check_for_off_peak
