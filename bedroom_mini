@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#set to Bedroom mini
+
+sed -i '5s/# *//' ~/bin/set_vol_home
+sed -i '5s/^/#/' ~/bin/set_vol_home
+sed -i '6s/# *//' ~/bin/set_vol_home
+
+sed -i '3s/# *//' ~/bin/mute_home
+sed -i '3s/^/#/' ~/bin/mute_home
+sed -i '4s/# *//' ~/bin/mute_home
+
+sed -i '3s/# *//' ~/bin/toggle_mute3_cast
+sed -i '3s/^/#/' ~/bin/toggle_mute3_cast
+sed -i '4s/# *//' ~/bin/toggle_mute3_cast
+
+sed -i '3s/# *//' ~/bin/cast_tr
+sed -i '3s/^/#/' ~/bin/cast_tr
+sed -i '4s/# *//' ~/bin/cast_tr
+
+sed -i '3s/# *//' ~/bin/cast_lbc
+sed -i '3s/^/#/' ~/bin/cast_lbc
+sed -i '4s/# *//' ~/bin/cast_lbc

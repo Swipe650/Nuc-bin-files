@@ -1,21 +1,24 @@
 #!/bin/bash
 
-#home_device="Lounge"
-home_device="Kitchen"
+google_home="Living Room mini"
+#google_home="Bedroom mini"
 
-mute () { "$HOME/bin/cast-linux-amd64" --name $home_device volume 0; }
+get_vol=$("$HOME/bin/cast-linux-amd64" --name "$google_home" status | awk -F 'Volume:' '{print $2}' | cut -c2-5)
+
+vol=$get_vol
+
+mute () { "$HOME/bin/cast-linux-amd64" --name "$google_home" volume 0; }
 
 
-unmute () { "$HOME/bin/cast-linux-amd64" --name $home_device volume 0.4; }
+unmute () { "$HOME/bin/cast-linux-amd64" --name "$google_home" volume $vol ; }
 
 set_default_mute_time()
 {
     mute
     
-    sleep 230
+    sleep 250
      
     unmute
-    
 }
 
 
@@ -25,7 +28,7 @@ check_top_of_the_hour()
     currenttime=$(date +%M)
 
 # check time for Talkradio
-    st=$(test -f ~/.tr && echo "TalkRadio")
+    st=$(test -f .tr && echo "TalkRadio")
     talkradio='TalkRadio'
     case "$st" in 
     "$talkradio" )
@@ -34,7 +37,7 @@ check_top_of_the_hour()
     
     mute
     
-    sleep 180
+    sleep 210
      
     unmute
     
@@ -46,7 +49,7 @@ check_top_of_the_hour()
     esac
     
     # check time for lbc
-    st=$(test -f ~/.lbc && echo "LBC UK")
+    st=$(test -f .lbc && echo "LBC UK")
     lbc='LBC UK'
     case "$st" in 
     "$lbc" )

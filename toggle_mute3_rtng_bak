@@ -6,7 +6,7 @@ rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
 
 # Adlength buffer overrun for daytime ads. Insert value here in secs
-buffer=15
+buffer=30
 
 # Conky countdown timer
 conkytimer()
@@ -51,19 +51,42 @@ top_of_the_hour_dialog()
         exit
       }
 
-# check if time is between top of the hour and 7 minutes
+# check if time is between top of the hour and 7 minutes or 58, 59 or 00
 check_top_of_the_hour()
 {  
    # Get current time in minutes
    currenttime=$(date +%M)
+
+   # check time for Talkradio
+    st=$(qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.get_player_state | jq -r '.station')
+    talkradio='TalkRadio'
+    #if [ "$st"='TalkRadio' ]; then
+    case "$st" in 
+    "$talkradio" )
+    
+    if [ "$currenttime" -eq "58" ] || [ "$currenttime" -eq "59" ]  || [ "$currenttime" -eq "00" ] || [ "$currenttime" -eq "01" ] || [ "$currenttime" -eq "02" ] || [ "$currenttime" -eq "03" ]  || [ "$currenttime" -eq "04" ]; then
+
+        declare -i adlength=180
+        
+        top_of_the_hour_dialog
+   fi
+   esac
    
+   st=$(qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.get_player_state | jq -r '.station')
+    lbc='LBC UK'
+    #if [ "$st"='LBC UK' ]; then
+    case "$st" in 
+    "$lbc" )
+   
+   # check if time is between top of the hour and 7 minutes
    if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
-   
+
+
         declare -i adlength=30
         
         top_of_the_hour_dialog
-
    fi
+esac
 }
 
 
@@ -102,7 +125,7 @@ check_for_off_peak()
    currenttime=$(date +%H%M)
 
    if [ "$currenttime" -gt "1900" ] || [ "$currenttime" -lt "0400" ]; then
-   timeout=185
+   timeout=240
    buffer=0
    fi
 }
@@ -116,7 +139,7 @@ no_adbreak_length()
 {
 
 # Sets timeout value for function
-timeout=225 # <--- Set value for adbreak length
+timeout=250 # <--- Set value for adbreak length
 
 # Run check_for_off_peak()
 check_for_off_peak
