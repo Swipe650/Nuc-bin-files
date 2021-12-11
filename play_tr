@@ -1,4 +1,10 @@
 #!/bin/bash
+
+touch ~/.tr
+
+if [[ -f ~/.lbc ]]; then rm ~/.lbc & touch ~/.tr
+fi
+
 radiotray-ng &
 sleep 1
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
