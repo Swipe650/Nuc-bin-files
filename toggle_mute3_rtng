@@ -26,7 +26,7 @@ conkytimer()
    for (( i = 0; i < sec; i++ )); do
          # write remaining sec to file
          timer=$((sec-i))
-         display="                               ${timer}"
+         display="                  ${timer}"
          echo "$display" > ~/.conkytimer
          # wait 1sec
          sleep 1
@@ -82,7 +82,7 @@ check_top_of_the_hour()
     top_of_the_hour_dialog
     
         
-    elif [ "$currenttime" -eq "33" ] || [ "$currenttime" -eq "34" ]  || [ "$currenttime" -eq "35" ] || [ "$currenttime" -eq "36" ] ; then
+    elif [ "$currenttime" -eq "33" ] || [ "$currenttime" -eq "34" ]  || [ "$currenttime" -eq "35" ] || [ "$currenttime" -eq "37" ] ; then
     
     declare -i adlength=30
          
@@ -104,18 +104,20 @@ check_top_of_the_hour()
     case "$st" in 
     "$lbc" )
 
-    if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
+    if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "02" ]; then
 # 
     declare -i adlength=30
          
     top_of_the_hour_dialog
     
     
-    else
+    #else
     
     #set_default_mute_time
     
     #declare -i adlength=250
+    
+    #no_adbreak_length
          
     top_of_the_hour_dialog
     
@@ -197,7 +199,7 @@ no_adbreak_length()
 
       do
          seconds=$(get_adbreak_length)
-         display="                               $((timeout - SECONDS))*"
+         display="                  $((timeout - SECONDS))*"
          echo "$display" > ~/.conkytimer
          sleep 2
       done
