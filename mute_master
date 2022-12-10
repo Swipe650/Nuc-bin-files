@@ -1,0 +1,4 @@
+#!/bin/bash
+amixer -q -D pulse sset Master toggle
+sleep $1 
+amixer -q -D pulse sset Master toggle

@@ -1,5 +1,6 @@
 #!/bin/bash
 
-home_device="Living Room mini"
+#home_device="Living Room mini"
+home_device="Kitchen"
 
 cast-linux-amd64 --name "$home_device" media play http://stream.radioparadise.com:80/aac-320

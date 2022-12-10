@@ -7,6 +7,6 @@ rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/mu
 
 mute
 
-sleep 30
+sleep $1
 
 unmute

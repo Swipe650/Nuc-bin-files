@@ -82,7 +82,7 @@ check_top_of_the_hour()
     top_of_the_hour_dialog
     
         
-    elif [ "$currenttime" -eq "33" ] || [ "$currenttime" -eq "34" ]  || [ "$currenttime" -eq "35" ] || [ "$currenttime" -eq "36" ] ; then
+    elif [ "$currenttime" -eq "33" ] || [ "$currenttime" -eq "34" ]  || [ "$currenttime" -eq "35" ] || [ "$currenttime" -eq "36" ]  || [ "$currenttime" -eq "37" ]; then
     
     declare -i adlength=30
          
