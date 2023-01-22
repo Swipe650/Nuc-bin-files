@@ -1,0 +1,2 @@
+#! /bin/bash
+protonvpn-cli ks --on && protonvpn-cli c
