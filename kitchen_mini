@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set to Kitchen mini
+#set to Kitchen
 
 sed -i '6s/# *//' ~/bin/set_vol_home
 sed -i '6s/^/#/' ~/bin/set_vol_home

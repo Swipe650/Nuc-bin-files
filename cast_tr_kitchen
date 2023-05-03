@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#home_device="Living Room mini"
+home_device="Kitchen"
+
+touch ~/.tr
+
+if [[ -f ~/.lbc ]]; then rm ~/.lbc & touch ~/.tr
+fi
+
+/home/swipe/bin/cast-linux-amd64 --name "$home_device" media play http://radio.talkradio.co.uk/stream?
