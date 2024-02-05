@@ -8,4 +8,4 @@ touch ~/.tr
 if [[ -f ~/.lbc ]]; then rm ~/.lbc & touch ~/.tr
 fi
 
-/home/swipe/bin/cast-linux-amd64 --name "$home_device" media play http://radio.talkradio.co.uk/stream?
+/home/swipe/bin/cast-linux-amd64 --name "$home_device" media play http://radio.talksport.com/stream2

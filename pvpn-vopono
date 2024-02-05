@@ -1,0 +1,2 @@
+#! /bin/bash
+vopono -v exec --provider protonvpn --server netherlands "chromium"
