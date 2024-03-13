@@ -34,7 +34,7 @@ RowLayout {
 
     spacing: Kirigami.Units.largeSpacing
 
-    Layout.preferredWidth: Math.max(Math.min(Screen.desktopAvailableWidth / 2, implicitWidth), Kirigami.Units.gridUnit * 10)
+    Layout.preferredWidth: Math.max(Math.min(Screen.desktopAvailableWidth / 2, implicitWidth), Kirigami.Units.gridUnit * 15)
     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
     Layout.minimumWidth: Layout.preferredWidth
     Layout.minimumHeight: Layout.preferredHeight

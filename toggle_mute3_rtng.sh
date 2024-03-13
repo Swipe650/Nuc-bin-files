@@ -2,6 +2,8 @@
 
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
+mute_vlc () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/vlc; }
+unmute_vlc () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/vlc; }
 # high_vol () { "$HOME/bin/mute_radiotray-ng" -h /usr/bin/radiotray-ng; }
 # low_vol () { "$HOME/bin/mute_radiotray-ng" -l /usr/bin/radiotray-ng; }
 # peep () { sleep 0.75; }
@@ -11,6 +13,7 @@ rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/mu
 # radio3 () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station BBC 'Radio 3'; sleep 3 ; ~/.conky/conkyradiotray-ng/onair; }
 # classicfm () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Classical 'Classic FM' ; }
 # soma () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.play_station Imported 'Space Station' ; }
+
 
 # Adlength buffer overrun for daytime ads. Insert value here in secs
 buffer=15
@@ -129,6 +132,7 @@ check_top_of_the_hour()
 check_top_of_the_hour
 
 mute
+mute_vlc
 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
@@ -214,5 +218,6 @@ conkytimer "$seconds"
 
 #lbc ;
 unmute
+unmute_vlc
 
 show_osd_dialog
