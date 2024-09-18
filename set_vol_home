@@ -5,4 +5,4 @@
 google_home="Living Room mini"
 #google_home="Bedroom mini"
 
-/home/swipe/bin/cast-linux-amd64 --name "$google_home" volume $1 && sed -i -e "10s/\(volume \).*/\1$1/" ~/bin/mute_home 
+/home/swipe/bin/cast-linux-amd64 --name "$google_home" volume $1 && sed -i -e "10s/\(volume \).*/\1$1/" ~/bin/mute_home.sh 

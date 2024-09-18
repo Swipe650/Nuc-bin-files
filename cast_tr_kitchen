@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #home_device="Living Room mini"
-home_device="Kitchen"
+home_device="Kitchen home"
 
 touch ~/.tr
 
