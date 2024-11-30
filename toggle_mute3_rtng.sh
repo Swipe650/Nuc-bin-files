@@ -76,11 +76,11 @@ check_top_of_the_hour()
     case "$st" in 
     "$talkradio" )
     
-    if [ "$currenttime" -eq "58" ] || [ "$currenttime" -eq "59" ]  || [ "$currenttime" -eq "00" ] || [ "$currenttime" -eq "01" ] || [ "$currenttime" -eq "02" ] || [ "$currenttime" -eq "03" ]  || [ "$currenttime" -eq "04" ]; then
+    if [ "$currenttime" -eq "01" ] || [ "$currenttime" -eq "02" ] || [ "$currenttime" -eq "03" ]  || [ "$currenttime" -eq "04" ]; then
     
    
     
-    declare -i adlength=210
+    declare -i adlength=60
          
     top_of_the_hour_dialog
     
