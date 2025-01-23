@@ -105,23 +105,22 @@ check_for_off_peak()
     done
 }
 
+
 # Function for default adbreak length
-default_adbreak_length()
+default_adbreak_length() 
 {
    # Sets timeout value for function
-   timeout=180 # <--- Set value for adbreak length
+   timeout=180  # Set value for adbreak length
 
    # Run check_for_off_peak()
    check_for_off_peak
 
-   #Wait until $SECONDS (time of running script) is greater than $timeout then execute do loop
-   until [ "$SECONDS" -gt $timeout ] 
-
-      do
-         display="                  $((timeout - SECONDS))*"
-         echo "$display" > ~/.conkytimer
-         sleep 2
-      done
+   # Wait until $SECONDS is greater than $timeout then execute the loop
+   while [ "$SECONDS" -le "$timeout" ]; do
+      # Display remaining time
+      echo "                  $((timeout - SECONDS))" > ~/.conkytimer
+      sleep 2
+   done
 }
 
 default_adbreak_length
