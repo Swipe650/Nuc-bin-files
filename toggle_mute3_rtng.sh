@@ -4,21 +4,14 @@ mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmute
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
 mute_vlc () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/vlc; }
 unmute_vlc () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/vlc; }
-# high_vol () { "$HOME/bin/mute_radiotray-ng" -h /usr/bin/radiotray-ng; }
-# low_vol () { "$HOME/bin/mute_radiotray-ng" -l /usr/bin/radiotray-ng; }
-# peep () { sleep 0.75; }
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
 rename_muted () { if [ -f "$HOME/.conky/muted.png" ]; then { mv "$HOME/.conky/muted.png" "$HOME/.conky/xmuted.png"; } fi }
-
 
 # Conky countdown timer
 conkytimer()
 {
-   #trap "rm ~/.conkytimer" INT
-
    sec=$1
-   # millisecondsToseonds=$(( $1/1000 ))
-
+  
    for (( i = 0; i < sec; i++ )); do
          # write remaining sec to file
          timer=$((sec-i))
@@ -57,54 +50,32 @@ top_of_the_hour_dialog()
         exit
       }
 
-
-check_top_of_the_hour()
-{  
-# Get current time in minutes
+check_top_of_the_hour() {
+    # Get current time in minutes
     currenttime=$(date +%M)
 
-# check time for Talkradio
-    st=$(test -f .tr && echo "TalkRadio")
-    talkradio='TalkRadio'
-    case "$st" in 
-    "$talkradio" )
-    
-    if [ "$currenttime" -eq "01" ] || [ "$currenttime" -eq "02" ] || [ "$currenttime" -eq "03" ]  || [ "$currenttime" -eq "04" ]; then
-    
-   
-    
-    declare -i adlength=60
-         
-    top_of_the_hour_dialog
-    
-#     elif [ "$currenttime" -eq "33" ] || [ "$currenttime" -eq "34" ]  || [ "$currenttime" -eq "35" ] || [ "$currenttime" -eq "36" ]  || [ "$currenttime" -eq "37" ]; then
+    # Define station-time mappings and corresponding adlength values
+    stations=(
+        ".tr:TalkRadio:01 02 03 04:50"
+        ".tr:TalkRadio:29 30 31 32 33 34 35 36 37:170"
+        ".lbc:LBC UK:00 01 02 03 04 05 06:30"
+    )
 
-    elif [ "$currenttime" -ge "29" ] && [ "$currenttime" -le "37" ]; then
-    
-    declare -i adlength=170
-         
-    top_of_the_hour_dialog
-    
-    fi
-    esac
-    
-    
-    # check time for lbc
-    st=$(test -f .lbc && echo "LBC UK")
-    lbc='LBC UK'
-    case "$st" in 
-    "$lbc" )
-
-    if [ "$currenttime" -gt "00" ] && [ "$currenttime" -lt "07" ]; then
-# 
-    declare -i adlength=30
-         
-    top_of_the_hour_dialog
-             
-    fi
-    
-    esac
+    # Loop through stations and check time for each IFS=Station Information Array
+    for station in "${stations[@]}"; do
+        IFS=':' read -r file station_name times adlength_value <<< "$station"
+        
+        # Check if the station file exists
+        if test -f "$file"; then
+            # Check if currenttime matches any of the defined times for this station
+            if [[ " $times " =~ " $currenttime " ]]; then
+                declare -i adlength=$adlength_value
+                top_of_the_hour_dialog
+            fi
+        fi
+    done
 }
+
 
 check_top_of_the_hour
 
@@ -114,18 +85,25 @@ mute_vlc
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 
 
+check_for_off_peak() 
+{
+    # Get current time in minutes
+    currenttime=$(date +%H%M)
+   
+    # Define station-time pairs
+    stations=(".lbc:LBC UK:120" ".tr:TalkRadio:170")
 
-check_for_off_peak()
-{  
-   # Get current time in minutes
-   currenttime=$(date +%H%M)
-
-   if [ "$currenttime" -gt "1900" ] || [ "$currenttime" -lt "0600" ]; then
-   timeout=170
-   fi
+    # Loop through stations and check time for each
+    for station in "${stations[@]}"; do
+        IFS=':' read -r file station_name timeout_value <<< "$station"
+        
+        if test -f "$file"; then
+            if [ "$currenttime" -gt "1900" ] || [ "$currenttime" -lt "0600" ]; then
+                timeout=$timeout_value
+            fi
+        fi
+    done
 }
-
-
 
 # Function for default adbreak length
 default_adbreak_length()
@@ -146,14 +124,10 @@ default_adbreak_length()
       done
 }
 
-
 default_adbreak_length
-
-
 
 conkytimer "$seconds"
 
-#lbc ;
 unmute
 unmute_vlc
 
