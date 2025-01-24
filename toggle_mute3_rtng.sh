@@ -49,7 +49,7 @@ top_of_the_hour_dialog() {
 check_top_of_the_hour() {
     currenttime=$(date +%M)
     stations=(
-        ".tr:TalkRadio:01 02 03 04:50"
+        ".tr:TalkRadio:01 02 03 04:45"
         ".tr:TalkRadio:29 30 31 32 33 34 35 36 37:170"
         ".lbc:LBC UK:00 01 02 03 04 05 06:30"
     )
@@ -80,7 +80,7 @@ check_for_off_peak() {
 default_adbreak_length() {
     timeout=180
     check_for_off_peak
-    while [ "$SECONDS" -le "$timeout" ]; do
+    while [ "$SECONDS" -gt "$timeout" ]; do
         echo "                  $((timeout - SECONDS))" > ~/.conkytimer
         sleep 2
     done
