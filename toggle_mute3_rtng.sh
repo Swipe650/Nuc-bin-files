@@ -43,6 +43,7 @@ top_of_the_hour_dialog() {
     unmute_app /usr/bin/radiotray-ng
     unmute_app /usr/bin/vlc
     show_osd_dialog
+    exit
 }
 
 # Check top of the hour conditions
@@ -50,7 +51,7 @@ check_top_of_the_hour() {
     currenttime=$(date +%M)
     stations=(
         ".tr:TalkRadio:01 02 03 04:45"
-        ".tr:TalkRadio:29 30 31 32 33 34 35 36 37:170"
+        ".tr:TalkRadio:31 32 33 34 35:170"
         ".lbc:LBC UK:00 01 02 03 04 05 06:30"
     )
 
@@ -61,7 +62,7 @@ check_top_of_the_hour() {
             top_of_the_hour_dialog
         fi
     done
-}
+    }
 
 # Check if off-peak period
 check_for_off_peak() {
@@ -80,7 +81,7 @@ check_for_off_peak() {
 default_adbreak_length() {
     timeout=180
     check_for_off_peak
-    while [ "$SECONDS" -gt "$timeout" ]; do
+    while [ "$SECONDS" -le "$timeout" ]; do
         echo "                  $((timeout - SECONDS))" > ~/.conkytimer
         sleep 2
     done
@@ -92,7 +93,6 @@ mute_app /usr/bin/radiotray-ng
 mute_app /usr/bin/vlc
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 default_adbreak_length
-conkytimer "$seconds"
 unmute_app /usr/bin/radiotray-ng
 unmute_app /usr/bin/vlc
 show_osd_dialog
