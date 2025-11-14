@@ -1,5 +1,5 @@
 #!/bin/sh
 
-/usr/bin/google-chrome-stable %U --app="https://www.globalplayer.com/live/lbc/uk/"
+/usr/bin/chromium %U --app="https://www.globalplayer.com/live/lbc/uk/"
 
 
