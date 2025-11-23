@@ -1,2 +1,4 @@
-# /etc/udev/rules.d/50-usb_power_save.rules
+# /etc/udev/rules.d/50-usb_power_save.rules 
+# Udev rule to disable autosuspend on microsoft usb intelipoint wireless mouse. 
+# Add to /etc/udev/rules.d/
 ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="006a", ATTR{power/autosuspend}="-1"
