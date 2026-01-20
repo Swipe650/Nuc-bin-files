@@ -1,17 +1,12 @@
 #!/bin/bash
 
-echo "=== Electric Bill Calculator ==="
+echo "=== Monthly Electric Bill Calculator ==="
 
-# E.On Next Jan 26 SVR
-# Fixed rates (in pence)
-day_rate_p=33.092
-night_rate_p=15.817
-standing_charge_p=53.673
 
-#Utilty Warehouse
-# day_rate_p=37.823
-# night_rate_p=5.084
-# standing_charge_p=50.362
+# Rates (in pence)
+day_rate_p=30.34
+night_rate_p=9
+standing_charge_p=52.49
 
 # Convert to pounds
 day_rate=$(echo "scale=4; $day_rate_p / 100" | bc)
@@ -21,7 +16,7 @@ standing_charge=$(echo "scale=4; $standing_charge_p / 100" | bc)
 # Get usage and number of days
 read -p "Enter number of kWh used during the day: " day_usage
 read -p "Enter number of kWh used during the night: " night_usage
-read -p "Enter number of days standing charge: " num_days
+read -p "Enter number of days in the current month: " num_days
 
 # Calculate costs
 day_cost=$(echo "$day_rate * $day_usage" | bc)

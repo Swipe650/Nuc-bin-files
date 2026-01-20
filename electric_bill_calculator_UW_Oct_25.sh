@@ -2,16 +2,16 @@
 
 echo "=== Electric Bill Calculator ==="
 
-# E.On Next Jan 26 SVR
+# E.On Next Reward v1
 # Fixed rates (in pence)
-day_rate_p=33.092
-night_rate_p=15.817
-standing_charge_p=53.673
+# day_rate_p=28.19
+# night_rate_p=10.92
+# standing_charge_p=63.62
 
 #Utilty Warehouse
-# day_rate_p=37.823
-# night_rate_p=5.084
-# standing_charge_p=50.362
+day_rate_p=38.685
+night_rate_p=5.201
+standing_charge_p=52.625
 
 # Convert to pounds
 day_rate=$(echo "scale=4; $day_rate_p / 100" | bc)
@@ -33,7 +33,7 @@ total_cost=$(echo "$day_cost + $night_cost + $standing_cost" | bc)
 echo ""
 echo "=== Bill Breakdown ==="
 echo "Day rate ($day_rate_p)         : £$day_cost"
-echo "Night rate ($night_rate_p)       : £$night_cost"
+echo "Night rate ($night_rate_p)        : £$night_cost"
 echo "Standing charge ($standing_charge_p)  : £$standing_cost"
 echo "-----------------------------"
-echo "Total cost  : £$total_cost"
+echo "Total cost : £$total_cost"
