@@ -28,8 +28,8 @@ def calculate_bill():
             f"Day rate ({DAY_RATE_P}p)         : £{day_cost:.2f}\n"
             f"Night rate ({NIGHT_RATE_P}p)       : £{night_cost:.2f}\n"
             f"Standing charge ({STANDING_CHARGE_P}p) : £{standing_cost:.2f}\n"
-            "-----------------------------\n"
-            f"Total cost : £{total_cost:.2f}"
+            "-----------------------------------\n"
+            f"Total cost                : £{total_cost:.2f}"
         )
 
         output_label.config(text=result_text)
@@ -55,6 +55,9 @@ tk.Label(frame, text="Day usage (kWh):").grid(row=1, column=0, sticky="e")
 day_entry = tk.Entry(frame)
 day_entry.grid(row=1, column=1)
 
+# ✅ Set initial focus here
+day_entry.focus_set()
+
 tk.Label(frame, text="Night usage (kWh):").grid(row=2, column=0, sticky="e")
 night_entry = tk.Entry(frame)
 night_entry.grid(row=2, column=1)
@@ -63,10 +66,11 @@ tk.Label(frame, text="Standing charge days:").grid(row=3, column=0, sticky="e")
 days_entry = tk.Entry(frame)
 days_entry.grid(row=3, column=1)
 
-# Button
-tk.Button(frame, text="Calculate Bill", command=calculate_bill).grid(
-    row=4, column=0, columnspan=2, pady=10
-)
+# Button (Return key support)
+calculate_button = tk.Button(frame, text="Calculate Bill", command=calculate_bill)
+calculate_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+calculate_button.bind("<Return>", lambda event: calculate_bill())
 
 # Output
 output_label = tk.Label(frame, text="", justify="left", font=("Courier", 10))
