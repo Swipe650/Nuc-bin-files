@@ -46,7 +46,7 @@ root.resizable(False, False)
 frame = tk.Frame(root, padx=15, pady=15)
 frame.pack()
 
-tk.Label(frame, text="Electric Bill Calculator", font=("Arial", 14, "bold")).grid(
+tk.Label(frame, text="UW Electric Bill Calculator", font=("Arial", 14, "bold")).grid(
     row=0, column=0, columnspan=2, pady=10
 )
 
