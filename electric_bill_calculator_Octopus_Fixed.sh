@@ -2,10 +2,11 @@
 
 echo "=== Electric Bill Calculator ==="
 
-#EDF
-day_rate_p=33.411
-night_rate_p=15.376
-standing_charge_p=53.673
+# Octopus Fixed Jan 26 v1
+# Fixed rates (in pence)
+day_rate_p=31.35
+night_rate_p=13.92
+standing_charge_p=52.49
 
 # Convert to pounds (keep high precision internally)
 day_rate=$(echo "scale=6; $day_rate_p / 100" | bc)
