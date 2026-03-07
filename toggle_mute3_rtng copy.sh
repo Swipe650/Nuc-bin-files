@@ -1,10 +1,8 @@
 #!/bin/bash
 
 # Generic mute/unmute function
-#mute_app() { "$HOME/bin/mute_radiotray-ng" -m "$1" && rename_muted_file; } 
-mute_app() { ~/bin/check_radiotray_mute.sh && rename_muted_file; }
-#unmute_app() { "$HOME/bin/mute_radiotray-ng" -u "$1" && rename_unmuted_file; } 
-unmute_app() { ~/bin/check_radiotray_unmute.sh && rename_unmuted_file; }
+mute_app() { "$HOME/bin/mute_radiotray-ng" -m "$1" && rename_muted_file; } 
+unmute_app() { "$HOME/bin/mute_radiotray-ng" -u "$1" && rename_unmuted_file; } 
 
 rename_muted_file() {
     if [ -f "$HOME/.conky/xmuted.png" ]; then
