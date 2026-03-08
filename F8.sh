@@ -14,4 +14,4 @@ else
 fi   
 
 wpctl set-mute $(wpctl status | awk '/Streams:/ {f=1; next} f && /radiotray-ng/ {print $1; exit}' | tr -d '.') toggle
-# ~/bin/mute_audiostream_pw vlc
+# ~/bin/mute_audiostream_pw ALSA plug-in [vlc]
