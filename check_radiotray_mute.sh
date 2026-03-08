@@ -16,5 +16,6 @@ check_radiotray_mute() {
 check_radiotray_mute
 
 if [ $? = 0 ]; then
-qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.mute
+#qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.mute
+wpctl set-mute 59 1
 fi

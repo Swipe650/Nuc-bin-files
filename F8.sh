@@ -8,9 +8,13 @@ state=$(qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiot
 if echo "$state" | grep -q '"mute" *: *false'; then
     # Not muted
     [ -f "$XMUTED" ] && mv "$XMUTED" "$MUTED"
+    wpctl set-mute 59 1
 else
     # Muted
     [ -f "$MUTED" ] && mv "$MUTED" "$XMUTED"
-fi
+    wpctl set-mute 59 0
+fi   
 
-qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.mute;
+#qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.mute;
+
+
