@@ -119,11 +119,8 @@ default_adbreak() {
 ###############################################################################
 
 check_top_of_hour
-
 mute_app
 show_muted_osd
-
 default_adbreak
-
 unmute_app
 show_osd
