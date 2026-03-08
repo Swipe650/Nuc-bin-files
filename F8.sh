@@ -14,6 +14,4 @@ else
 fi   
 
 wpctl set-mute $(wpctl status | awk '/Streams:/ {f=1; next} f && /radiotray-ng/ {print $1; exit}' | tr -d '.') toggle
-
-#wpctl set-mute 59 toggle
-
+# wpctl set-mute $(wpctl status | awk '/Streams:/ {f=1; next} f && /vlc/ {print $1; exit}' | tr -d '.') toggle
