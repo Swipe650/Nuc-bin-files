@@ -36,12 +36,10 @@ show_osd_dialog() {
 
 # Mute/unmute actions and top-of-the-hour dialog
 top_of_the_hour_dialog() {
-    mute_app /usr/bin/radiotray-ng
-    mute_app /usr/bin/vlc
+    mute_app 
     qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
     conkytimer "$adlength"
-    unmute_app /usr/bin/radiotray-ng
-    unmute_app /usr/bin/vlc
+    unmute_app
     show_osd_dialog
     exit
 }
