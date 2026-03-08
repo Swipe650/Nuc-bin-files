@@ -2,8 +2,6 @@
 
 # Generic mute/unmute function
 toggle_mute() { wpctl set-mute $(wpctl status | awk '/Streams:/ {f=1; next} f && /radiotray-ng/ {print $1; exit}' | tr -d '.') toggle; }
-# mute_app() { ~/bin/check_radiotray_mute.sh && rename_muted_file; }
-# unmute_app() { ~/bin/check_radiotray_mute.sh && rename_unmuted_file; }
 mute_app() { toggle_mute && rename_muted_file; }
 unmute_app() { toggle_mute && rename_unmuted_file; }
 
