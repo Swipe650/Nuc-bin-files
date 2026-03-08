@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # Generic mute/unmute function
-toggle_mute() { wpctl set-mute $(wpctl status | awk '/Streams:/ {f=1; next} f && /radiotray-ng/ {print $1; exit}' | tr -d '.') toggle; }
-mute_app() { toggle_mute && rename_muted_file; }
-unmute_app() { toggle_mute && rename_unmuted_file; }
+mute_app() { ~/bin/check_radiotray_mute.sh && rename_muted_file; }
+unmute_app() { ~/bin/check_radiotray_unmute.sh && rename_unmuted_file; }
 
 rename_muted_file() {
     if [ -f "$HOME/.conky/xmuted.png" ]; then
@@ -37,10 +36,12 @@ show_osd_dialog() {
 
 # Mute/unmute actions and top-of-the-hour dialog
 top_of_the_hour_dialog() {
-    mute_app 
+    mute_app /usr/bin/radiotray-ng
+    mute_app /usr/bin/vlc
     qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
     conkytimer "$adlength"
-    unmute_app g
+    unmute_app /usr/bin/radiotray-ng
+    unmute_app /usr/bin/vlc
     show_osd_dialog
     exit
 }
@@ -88,8 +89,8 @@ default_adbreak_length() {
 
 # Main script
 check_top_of_the_hour
-mute_app
+mute_app 
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 default_adbreak_length
-unmute_app
+unmute_app 
 show_osd_dialog
