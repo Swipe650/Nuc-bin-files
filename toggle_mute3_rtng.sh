@@ -88,7 +88,6 @@ default_adbreak_length() {
 # Main script
 check_top_of_the_hour
 mute_app
-
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 default_adbreak_length
 unmute_app
