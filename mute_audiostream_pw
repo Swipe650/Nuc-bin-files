@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# mute_audiostream (PipeWire)
+# Usage: mute_audiostream [-m|-u] appname
+
+action=toggle
+while getopts :mu o; do
+    case "$o" in
+        m) action=1 ;;   # mute
+        u) action=0 ;;   # unmute
+        *) echo "Usage: $0 [-m|-u] appname"; exit 1 ;;
+    esac
+done
+shift $((OPTIND-1))
+
+app="$1"
+[[ -z "$app" ]] && { echo "Usage: $0 [-m|-u] appname"; exit 1; }
+
+ID=$(wpctl status |
+     awk -v app="$app" '/Streams:/ {f=1; next} f && $0 ~ app {print $1; exit}' |
+     tr -d '.')
+
+[[ -z "$ID" ]] && { echo "No stream found for: $app"; exit 1; }
+
+if [[ "$action" == "toggle" ]]; then
+    wpctl set-mute "$ID" toggle
+else
+    wpctl set-mute "$ID" "$action"
+fi
+
