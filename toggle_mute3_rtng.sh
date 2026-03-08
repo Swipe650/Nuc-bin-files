@@ -101,15 +101,15 @@ check_off_peak() {
 
     local time
     time=$(date +%H%M)
-
-    if [[ "$time" -gt 1900 || "$time" -lt 0600 ]]; then
+    
+    if [[ "$time" -gt 1900 || "$time" -lt 0600 ]] && [[ $st != "GB News" ]]; then
         timeout=170
     fi
 }
 
 default_adbreak() {
 
-    timeout=185
+    if [[ $st == "GB News" ]]; then timeout=225; else timeout=185; fi
     check_off_peak
     conky_timer "$timeout"
 }
@@ -118,6 +118,7 @@ default_adbreak() {
 # MAIN
 ###############################################################################
 
+st=$(qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.radiotray_ng.get_player_state | jq -r '.station')
 check_top_of_hour
 mute_app
 show_muted_osd
