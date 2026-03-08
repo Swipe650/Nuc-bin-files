@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Generic mute/unmute function
-#mute_app() { "$HOME/bin/mute_radiotray-ng" -m "$1" && rename_muted_file; } 
 mute_app() { ~/bin/check_radiotray_mute.sh && rename_muted_file; }
-#unmute_app() { "$HOME/bin/mute_radiotray-ng" -u "$1" && rename_unmuted_file; } 
 unmute_app() { ~/bin/check_radiotray_mute.sh && rename_unmuted_file; }
 
 rename_muted_file() {
@@ -38,12 +36,10 @@ show_osd_dialog() {
 
 # Mute/unmute actions and top-of-the-hour dialog
 top_of_the_hour_dialog() {
-    mute_app #/usr/bin/radiotray-ng
-    #mute_app /usr/bin/vlc
+    mute_app 
     qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
     conkytimer "$adlength"
-    unmute_app #/usr/bin/radiotray-ng
-    #unmute_app /usr/bin/vlc
+    unmute_app g
     show_osd_dialog
     exit
 }
@@ -91,10 +87,9 @@ default_adbreak_length() {
 
 # Main script
 check_top_of_the_hour
-mute_app #/usr/bin/radiotray-ng
-#mute_app /usr/bin/vlc
+mute_app
+
 qdbus org.kde.plasmashell /org/kde/osdService org.kde.osdService.volumeChanged 0
 default_adbreak_length
-unmute_app #/usr/bin/radiotray-ng
-#unmute_app /usr/bin/vlc
+unmute_app
 show_osd_dialog
