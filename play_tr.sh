@@ -6,7 +6,7 @@ if [[ -f ~/.lbc ]]; then rm ~/.lbc & touch ~/.tr
 fi
 
 radiotray-ng &
-sleep 1
+sleep 3
 mute () { "$HOME/bin/mute_radiotray-ng" -m /usr/bin/radiotray-ng && rename_xmuted; }
 unmute () { "$HOME/bin/mute_radiotray-ng" -u /usr/bin/radiotray-ng && rename_muted; }
 rename_xmuted () { if [ -f "$HOME/.conky/xmuted.png" ]; then { mv "$HOME/.conky/xmuted.png" "$HOME/.conky/muted.png"; } fi }
