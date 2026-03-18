@@ -4,7 +4,7 @@ echo "=== Electric Bill Calculator ==="
 
 # Utility Warehouse 1st April 2026
 
-day_rate_p=31.818
+day_rate_p=31.817
 night_rate_p=9.493
 standing_charge_p=59.199
 

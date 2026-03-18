@@ -2,10 +2,10 @@
 
 echo "=== Electric Bill Calculator ==="
 
-# Octopus Flex
+# Octopus Flex 1st April
 # Rates (in pence)
-day_rate_p=33.71
-night_rate_p=14.97
+day_rate_p=30.32
+night_rate_p=11.51
 standing_charge_p=52.49
 
 # Convert to pounds (keep high precision internally)
