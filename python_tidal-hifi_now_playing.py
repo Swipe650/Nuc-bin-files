@@ -22,7 +22,7 @@ HTML_TEMPLATE = """
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <style>
         body { margin:0; font-family:-apple-system; color:white; overflow:hidden; }
-        .bg { position:fixed; width:100%; height:100%; background-size:cover; filter:blur(40px) brightness(0.25); z-index:-1; transition: background-image 0.5s ease; }
+        .bg { position:fixed; width:100%; height:100%; background-size:cover; filter:blur(10px) brightness(0.35); z-index:-1; transition: background-image 0.5s ease; }
         .overlay { display:flex; height:100vh; align-items:center; justify-content:center; }
         .card { display:flex; gap:40px; background:rgba(0,0,0,0.4); padding:30px; border-radius:20px; backdrop-filter:blur(20px); }
         .art { width:260px; border-radius:16px; }
