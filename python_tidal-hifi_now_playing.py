@@ -26,11 +26,29 @@ HTML_TEMPLATE = """
         .overlay { display:flex; height:100vh; align-items:center; justify-content:center; }
         .card { display:flex; gap:40px; background:rgba(0,0,0,0.4); padding:30px; border-radius:20px; backdrop-filter:blur(20px); max-width:90vw; }
         .art { width:260px; border-radius:16px; }
-        .info { display:flex; flex-direction:column; justify-content:center; min-width:0; flex:1; }
-        .track { font-size:2em; word-break:break-word; overflow-wrap:break-word; }
+        .info { 
+            display:flex; 
+            flex-direction:column; 
+            justify-content:center; 
+            min-width: 400px;  /* Set minimum width to match previous fixed size */
+            flex: 1;
+        }
+        .track { 
+            font-size:2em; 
+            word-break:break-word; 
+            overflow-wrap:break-word;
+        }
         .artist { color:#ccc; }
         .album { color:#999; margin-bottom:20px; }
-        .progress-container { width:100%; height:6px; background:rgba(255,255,255,0.2); border-radius:10px; overflow:hidden; cursor:pointer; }
+        .progress-container { 
+            width:100%;  /* Dynamic width - fills the container */
+            height:6px; 
+            background:rgba(255,255,255,0.2); 
+            border-radius:10px; 
+            overflow:hidden; 
+            cursor:pointer;
+            min-width: 300px;  /* Ensure progress bar doesn't get too small */
+        }
         .progress { height:100%; background:#1db954; width:0%; transition:width 0.2s linear; }
         .time { display:flex; justify-content:space-between; font-size:0.8em; color:#aaa; }
         .controls { margin-top:20px; display:flex; gap:20px; }
@@ -44,6 +62,7 @@ HTML_TEMPLATE = """
             .art { width:200px; }
             .track { font-size:1.5em; text-align:center; }
             .artist, .album { text-align:center; }
+            .info { min-width: 280px; }  /* Slightly smaller minimum on mobile */
         }
     </style>
 </head>
@@ -102,18 +121,10 @@ progressContainer.addEventListener('click', (e) => {
     const clickX = e.clientX - rect.left;
     const width = rect.width;
     const percent = clickX / width;
-    const seekSeconds = Math.floor(percent * trackDurationSec);  // absolute seek
+    const seekSeconds = Math.floor(percent * trackDurationSec);
 
     fetch(`/seek/${seekSeconds}`, { method: 'PUT' });
 });
-
-// Optional: Add a resize observer to log progress bar width changes (for debugging)
-const resizeObserver = new ResizeObserver(entries => {
-    for (let entry of entries) {
-        console.log('Progress bar width:', entry.contentRect.width, 'px');
-    }
-});
-resizeObserver.observe(progressContainer);
 </script>
 </body>
 </html>
@@ -173,7 +184,7 @@ def control(action):
 @app.route('/seek/<int:seconds>', methods=['PUT'])
 def seek(seconds):
     try:
-        url = f"{BASE_URL}/player/seek/absolute?seconds={seconds}"  # absolute seek via query param
+        url = f"{BASE_URL}/player/seek/absolute?seconds={seconds}"
         try:
             requests.put(url, timeout=2)
         except Exception:
