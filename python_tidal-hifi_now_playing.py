@@ -24,19 +24,27 @@ HTML_TEMPLATE = """
         body { margin:0; font-family:-apple-system; color:white; overflow:hidden; }
         .bg { position:fixed; width:100%; height:100%; background-size:cover; filter:blur(10px) brightness(0.35); z-index:-1; transition: background-image 0.5s ease; }
         .overlay { display:flex; height:100vh; align-items:center; justify-content:center; }
-        .card { display:flex; gap:40px; background:rgba(0,0,0,0.4); padding:30px; border-radius:20px; backdrop-filter:blur(20px); }
+        .card { display:flex; gap:40px; background:rgba(0,0,0,0.4); padding:30px; border-radius:20px; backdrop-filter:blur(20px); max-width:90vw; }
         .art { width:260px; border-radius:16px; }
-        .info { display:flex; flex-direction:column; justify-content:center; }
-        .track { font-size:2em; }
+        .info { display:flex; flex-direction:column; justify-content:center; min-width:0; flex:1; }
+        .track { font-size:2em; word-break:break-word; overflow-wrap:break-word; }
         .artist { color:#ccc; }
         .album { color:#999; margin-bottom:20px; }
-        .progress-container { width:400px; height:6px; background:rgba(255,255,255,0.2); border-radius:10px; overflow:hidden; cursor:pointer; }
+        .progress-container { width:100%; height:6px; background:rgba(255,255,255,0.2); border-radius:10px; overflow:hidden; cursor:pointer; }
         .progress { height:100%; background:#1db954; width:0%; transition:width 0.2s linear; }
         .time { display:flex; justify-content:space-between; font-size:0.8em; color:#aaa; }
         .controls { margin-top:20px; display:flex; gap:20px; }
         .btn { background:rgba(255,255,255,0.1); border:none; color:white; padding:10px 15px; border-radius:10px; cursor:pointer; font-size:1em; }
         .btn:hover { background:rgba(255,255,255,0.25); }
         .meta { margin-top:10px; font-size:0.85em; color:#bbb; }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card { flex-direction: column; align-items: center; gap:20px; padding:20px; }
+            .art { width:200px; }
+            .track { font-size:1.5em; text-align:center; }
+            .artist, .album { text-align:center; }
+        }
     </style>
 </head>
 <body>
@@ -98,6 +106,14 @@ progressContainer.addEventListener('click', (e) => {
 
     fetch(`/seek/${seekSeconds}`, { method: 'PUT' });
 });
+
+// Optional: Add a resize observer to log progress bar width changes (for debugging)
+const resizeObserver = new ResizeObserver(entries => {
+    for (let entry of entries) {
+        console.log('Progress bar width:', entry.contentRect.width, 'px');
+    }
+});
+resizeObserver.observe(progressContainer);
 </script>
 </body>
 </html>
