@@ -2,9 +2,9 @@ import tkinter as tk
 from tkinter import messagebox
 
 # Utility Warehouse rates (pence)
-DAY_RATE_P = 31.817
-NIGHT_RATE_P = 9.493
-STANDING_CHARGE_P = 59.199
+DAY_RATE_P = 36.621
+NIGHT_RATE_P = 6.916
+STANDING_CHARGE_P = 56.927
 
 # Convert to pounds
 DAY_RATE = DAY_RATE_P / 100

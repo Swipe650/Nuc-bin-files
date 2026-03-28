@@ -4,9 +4,9 @@ echo "=== Electric Bill Calculator ==="
 
 # Utility Warehouse 1st April 2026
 
-day_rate_p=36.621
-night_rate_p=6.916
-standing_charge_p=56.972
+day_rate_p=31.817
+night_rate_p=9.493
+standing_charge_p=59.199
 
 # Convert to pounds (keep high precision internally)
 day_rate=$(echo "scale=6; $day_rate_p / 100" | bc)
