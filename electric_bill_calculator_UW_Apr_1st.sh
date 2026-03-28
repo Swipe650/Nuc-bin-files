@@ -2,7 +2,7 @@
 
 echo "=== Electric Bill Calculator ==="
 
-# Utility Warehouse 1st April 2026
+# Utility Warehouse Fixed Start 80 1/4/26 - 31/3/27
 
 day_rate_p=36.621
 night_rate_p=6.916

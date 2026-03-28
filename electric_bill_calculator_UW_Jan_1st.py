@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# Utility Warehouse rates (pence) Fixed Start 80 1/4/26 - 31/3/27
-DAY_RATE_P = 36.621
-NIGHT_RATE_P = 6.916
-STANDING_CHARGE_P = 56.972
+# Utility Warehouse rates (pence)
+DAY_RATE_P = 40.42
+NIGHT_RATE_P = 5.697
+STANDING_CHARGE_P = 53.535
 
 # Convert to pounds
 DAY_RATE = DAY_RATE_P / 100
@@ -25,7 +25,7 @@ def calculate_bill():
 
         result_text = (
             #"=== Bill Breakdown ===\n"
-            f"Day rate ({DAY_RATE_P}p)        : £{day_cost:.2f}\n"
+            f"Day rate ({DAY_RATE_P}p)         : £{day_cost:.2f}\n"
             f"Night rate ({NIGHT_RATE_P}p)       : £{night_cost:.2f}\n"
             f"Standing charge ({STANDING_CHARGE_P}p) : £{standing_cost:.2f}\n"
             "-----------------------------------\n"
@@ -46,7 +46,7 @@ root.resizable(False, False)
 frame = tk.Frame(root, padx=15, pady=15)
 frame.pack()
 
-tk.Label(frame, text="UW Fixed Start 80 Calculator", font=("Arial", 14, "bold")).grid(
+tk.Label(frame, text="UW Electric Bill Calculator", font=("Arial", 14, "bold")).grid(
     row=0, column=0, columnspan=2, pady=10
 )
 
