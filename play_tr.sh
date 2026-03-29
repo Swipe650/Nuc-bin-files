@@ -16,8 +16,8 @@ setvol () { qdbus com.github.radiotray_ng /com/github/radiotray_ng com.github.ra
 unmute_pwctl () { wpctl set-mute $(wpctl status | awk '/Streams:/ {f=1; next} f && /radiotray-ng/ {print $1; exit}' | tr -d '.') 0; } 
 
 setvol
-unmute_pwctl
 talkradio
 sleep 3
+unmute_pwctl
 unmute
 rename_muted
