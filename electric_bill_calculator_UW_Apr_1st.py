@@ -79,7 +79,7 @@ button_frame = tk.Frame(frame)
 button_frame.grid(row=4, column=0, columnspan=3, pady=10)
 
 # Calculate button
-calculate_button = tk.Button(button_frame, text="Calculate Bill", command=calculate_bill)
+calculate_button = tk.Button(button_frame, text="Calculate", command=calculate_bill)
 calculate_button.pack(side=tk.LEFT, padx=5)
 
 # Reset button (no color)
